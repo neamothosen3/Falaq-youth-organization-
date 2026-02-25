@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donation-Falaq youth organization</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&family=Anek+Bangla:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #f25b31;
+    --warm-red: #d93025;
+    --green-light: #e8f5e9;
+    --green-mid: #a5d6a7;
+    --green-dark: #2e7d32;
+    --bkash: #e2136e;
+    --nagad: #f6821f;
+    --white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-mid: #444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Hind Siliguri', sans-serif; color: var(--text-dark); background: var(--white); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(10px);
+    border-bottom: 3px solid var(--orange); padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px; box-shadow: 0 2px 20px rgba(242,91,49,0.15);
+  }
+  .logo { display: flex; align-items: center; text-decoration: none; }
+  .logo img { height: 48px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 15px; font-weight: 500; position: relative; padding-bottom: 4px; transition: color 0.3s; }
+  .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--orange); transition: width 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--orange); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+  .hamburger span { display: block; width: 26px; height: 3px; background: var(--orange); border-radius: 2px; }
+  .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; background: white; border-bottom: 3px solid var(--orange); padding: 20px; z-index: 999; }
+  .mobile-menu a { display: flex; align-items: center; gap: 10px; padding: 12px 0; color: var(--text-dark); text-decoration: none; font-size: 16px; border-bottom: 1px solid #eee; }
+  .mobile-menu a img { width: 20px; height: 20px; }
+  .mobile-menu a:hover { color: var(--orange); }
+  .mobile-menu.open { display: block; }
+
+  /* DONATE HERO */
+  .donate-hero {
+    padding-top: 70px; min-height: 420px;
+    background: linear-gradient(135deg, var(--orange) 0%, var(--warm-red) 100%);
+    display: flex; align-items: center; position: relative; overflow: hidden;
+  }
+  .donate-hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; border-radius: 50%; background: rgba(255,255,255,0.06); }
+  .hero-inner { max-width: 1200px; width: 90%; margin: 0 auto; padding: 60px 0; position: relative; z-index: 1; }
+  .breadcrumb { display: flex; gap: 10px; margin-bottom: 20px; }
+  .breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; }
+  .breadcrumb a:hover { color: white; }
+  .breadcrumb span { color: rgba(255,255,255,0.4); font-size: 13px; }
+  .donate-title { font-family: 'Anek Bangla', sans-serif; font-weight: 800; font-size: clamp(34px, 5vw, 60px); color: white; margin-bottom: 15px; }
+  .donate-subtitle { font-size: 17px; color: rgba(255,255,255,0.85); max-width: 600px; line-height: 1.8; margin-bottom: 30px; }
+  .ayat-box { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 16px; padding: 20px 25px; max-width: 600px; }
+  .ayat-arabic { font-size: 20px; color: #ffe082; direction: rtl; margin-bottom: 8px; }
+  .ayat-trans { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.7; }
+  .ayat-ref { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 5px; }
+
+  /* MAIN PAYMENT SECTION */
+  .payment-section { background: var(--white); padding: 80px 5%; }
+  .section-inner { max-width: 1000px; margin: 0 auto; }
+  .section-label { font-size: 13px; color: var(--orange); font-weight: 600; letter-spacing: 2px; margin-bottom: 10px; }
+  .section-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: clamp(24px, 3.5vw, 38px); margin-bottom: 15px; }
+  .section-title span { color: var(--orange); }
+  .divider { width: 60px; height: 4px; background: linear-gradient(90deg, var(--orange), var(--warm-red)); border-radius: 2px; margin: 15px 0 40px; }
+
+  /* PAYMENT NUMBER PROMINENT */
+  .payment-number-banner {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    border-radius: 24px; padding: 40px;
+    text-align: center; margin-bottom: 40px;
+    position: relative; overflow: hidden;
+    border: 2px solid var(--orange);
+  }
+  .payment-number-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(242,91,49,0.2), transparent 70%); }
+  .pn-label { font-size: 13px; color: rgba(255,255,255,0.6); letter-spacing: 2px; margin-bottom: 15px; position: relative; }
+  .pn-number { font-family: 'Anek Bangla', sans-serif; font-weight: 800; font-size: clamp(28px, 5vw, 52px); color: var(--orange); display: block; margin-bottom: 10px; position: relative; text-shadow: 0 0 30px rgba(242,91,49,0.4); }
+  .pn-copy {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: white; padding: 8px 18px; border-radius: 20px;
+    font-size: 13px; cursor: pointer; transition: all 0.3s;
+    position: relative;
+  }
+  .pn-copy img { width: 16px; height: 16px; filter: brightness(10); }
+  .pn-copy:hover { background: rgba(255,255,255,0.2); }
+  .pn-methods { display: flex; justify-content: center; gap: 15px; margin-top: 20px; position: relative; }
+  .pn-method { padding: 6px 18px; border-radius: 20px; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+  .pn-method img { width: 16px; height: 16px; filter: brightness(10); }
+  .pn-bkash { background: var(--bkash); color: white; }
+  .pn-nagad { background: var(--nagad); color: white; }
+
+  /* PAYMENT CARDS */
+  .payment-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
+  .pay-card { border-radius: 24px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.12); transition: transform 0.3s; }
+  .pay-card:hover { transform: translateY(-6px); }
+
+  /* BKASH */
+  .bkash-card .pay-header { background: linear-gradient(135deg, #e2136e, #c00e5a); padding: 35px 30px; color: white; text-align: center; }
+  .bkash-logo { font-family: 'Anek Bangla', sans-serif; font-weight: 800; font-size: 32px; margin-bottom: 5px; }
+  .bkash-logo span { font-size: 14px; display: block; opacity: 0.8; font-weight: 400; }
+  .pay-icon { width: 50px; height: 50px; margin: 0 auto 10px; display: block; filter: brightness(10); }
+  .pay-body { background: var(--white); padding: 30px; }
+  .pay-number-label { font-size: 12px; color: #999; margin-bottom: 8px; letter-spacing: 1px; }
+  .pay-number-val { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 26px; color: var(--text-dark); margin-bottom: 20px; }
+  .pay-steps { margin-top: 5px; }
+  .pay-step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+  .ps-num { min-width: 26px; height: 26px; border-radius: 50%; background: #e2136e; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+  .ps-text { font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+
+  /* NAGAD */
+  .nagad-card .pay-header { background: linear-gradient(135deg, #f6821f, #e06d10); padding: 35px 30px; color: white; text-align: center; }
+  .nagad-logo { font-family: 'Anek Bangla', sans-serif; font-weight: 800; font-size: 32px; margin-bottom: 5px; }
+  .nagad-logo span { font-size: 14px; display: block; opacity: 0.8; font-weight: 400; }
+  .nagad-num { color: var(--nagad); }
+
+  /* AMOUNTS */
+  .amounts-section { background: var(--green-light); padding: 80px 5%; }
+  .amounts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; max-width: 700px; margin: 30px auto 0; }
+  .amount-card { background: white; border: 2px solid var(--green-mid); border-radius: 16px; padding: 25px 15px; text-align: center; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; }
+  .amount-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--orange), var(--warm-red)); opacity: 0; transition: opacity 0.3s; }
+  .amount-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+  .amount-card:hover::before { opacity: 1; }
+  .amount-card:hover .amount-tk, .amount-card:hover .amount-note { color: white; }
+  .amount-tk { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 28px; color: var(--orange); position: relative; z-index: 1; }
+  .amount-note { font-size: 12px; color: var(--text-mid); margin-top: 5px; position: relative; z-index: 1; transition: color 0.3s; }
+  .amount-card-popular { border-color: var(--orange); }
+  .popular-badge { position: absolute; top: 10px; right: 10px; background: var(--orange); color: white; font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 600; z-index: 2; }
+
+  /* IMPACT */
+  .impact-section { background: var(--white); padding: 80px 5%; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
+  .impact-card { border-radius: 20px; padding: 35px 28px; position: relative; overflow: hidden; }
+  .impact-card-1 { background: linear-gradient(135deg, rgba(226,19,110,0.08), rgba(226,19,110,0.03)); border: 2px solid rgba(226,19,110,0.2); }
+  .impact-card-2 { background: linear-gradient(135deg, rgba(246,130,31,0.08), rgba(246,130,31,0.03)); border: 2px solid rgba(246,130,31,0.2); }
+  .impact-card-3 { background: linear-gradient(135deg, rgba(46,125,50,0.08), rgba(46,125,50,0.03)); border: 2px solid rgba(46,125,50,0.2); }
+  .impact-amount { font-family: 'Anek Bangla', sans-serif; font-weight: 800; font-size: 38px; color: var(--orange); margin-bottom: 8px; }
+  .impact-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 12px; }
+  .impact-desc { font-size: 14px; color: var(--text-mid); line-height: 1.8; }
+
+  /* QURAN */
+  .quran-section { background: linear-gradient(135deg, var(--orange), var(--warm-red)); padding: 80px 5%; text-align: center; }
+  .q-inner { max-width: 800px; margin: 0 auto; }
+  .q-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: clamp(24px, 3.5vw, 36px); color: white; margin-bottom: 30px; }
+  .q-card { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 40px; margin-bottom: 20px; }
+  .q-arabic { font-size: 24px; color: #ffe082; direction: rtl; margin-bottom: 15px; line-height: 1.8; }
+  .q-trans { font-size: 16px; color: rgba(255,255,255,0.9); line-height: 1.9; }
+  .q-ref { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 10px; }
+
+  /* FAQ */
+  .faq-section { background: var(--white); padding: 80px 5%; }
+  .faq-grid { max-width: 800px; margin: 0 auto; }
+  .faq-item { border: 2px solid #f0f0f0; border-radius: 14px; margin-bottom: 12px; overflow: hidden; transition: border-color 0.3s; }
+  .faq-item.open { border-color: var(--orange); }
+  .faq-q { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 16px; }
+  .faq-icon { font-size: 20px; transition: transform 0.3s; color: var(--orange); }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-a { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; font-size: 14px; color: var(--text-mid); line-height: 1.8; }
+  .faq-item.open .faq-a { max-height: 200px; padding: 0 24px 20px; }
+
+  footer { background: #111; color: #ccc; padding: 50px 5% 30px; text-align: center; }
+  .footer-logo-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
+  .footer-logo-wrap img { height: 40px; width: auto; }
+  .footer-links { display: flex; justify-content: center; gap: 25px; margin: 20px 0; flex-wrap: wrap; }
+  .footer-links a { color: #aaa; text-decoration: none; font-size: 14px; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-copy { font-size: 13px; color: #666; margin-top: 20px; }
+  .footer-phone { display: flex; align-items: center; justify-content: center; gap: 6px; margin: 12px 0; font-size: 14px; color: #666; }
+  .footer-phone img { width: 14px; height: 14px; opacity: 0.7; }
+
+  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .center { text-align: center; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .payment-cards { grid-template-columns: 1fr; }
+    .pn-number { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <img src="logo_icon_src/logo_header.svg" alt="ফালাক লোগো" height="48">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">হোম</a></li>
+    <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+    <li><a href="join.html">যোগ দিন</a></li>
+    <li><a href="donate.html" class="active">দান করুন</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html"><img src="logo_icon_src/icon_nav_home.svg" alt=""> হোম</a>
+  <a href="about.html"><img src="logo_icon_src/icon_nav_about.svg" alt=""> আমাদের সম্পর্কে</a>
+  <a href="join.html"><img src="logo_icon_src/icon_nav_join.svg" alt=""> যোগ দিন</a>
+  <a href="donate.html"><img src="logo_icon_src/icon_nav_donate.svg" alt=""> দান করুন</a>
+</div>
+
+<!-- HERO -->
+<section class="donate-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">হোম</a>
+      <span>›</span>
+      <span style="color: rgba(255,255,255,0.8);">দান করুন</span>
+    </div>
+    <h1 class="donate-title">আপনার সদকা<br>পরিবর্তন আনুক</h1>
+    <p class="donate-subtitle">আপনার প্রতিটি টাকা একজন যুবকের জীবনে আলো জ্বালাতে পারে। ফালাক ইউথ অর্গানাইজেশনকে সহায়তা করুন এবং আখিরাতের পাথেয় সংগ্রহ করুন।</p>
+    <div class="ayat-box">
+      <div class="ayat-arabic">مَّن ذَا الَّذِي يُقۡرِضُ اللَّهَ قَرۡضًا حَسَنٗا</div>
+      <p class="ayat-trans">"এমন কেউ আছে কি, যে আল্লাহকে উত্তম ঋণ দেবে? তিনি তার বহুগুণ বৃদ্ধি করে দেবেন।"</p>
+      <div class="ayat-ref">— সূরা আল-বাকারা: ২৪৫</div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT SECTION -->
+<section class="payment-section">
+  <div class="section-inner">
+    <p class="section-label reveal center">দান পাঠানোর পদ্ধতি</p>
+    <h2 class="section-title reveal center">দান পাঠান এখনই</h2>
+    <div class="divider reveal" style="margin: 15px auto 40px;"></div>
+
+    <!-- PROMINENT NUMBER -->
+    <div class="payment-number-banner reveal">
+      <p class="pn-label">দান পাঠানোর একক নম্বর</p>
+      <span class="pn-number" id="donateNumber">880 1627-053081</span>
+      <div>
+        <button class="pn-copy" onclick="copyNumber()">
+          <img src="logo_icon_src/icon_copy.svg" alt="">
+          নম্বর কপি করুন
+        </button>
+      </div>
+      <div class="pn-methods">
+        <span class="pn-method pn-bkash">
+          <img src="logo_icon_src/icon_bkash.svg" alt="">
+          বিকাশ
+        </span>
+        <span class="pn-method pn-nagad">
+          <img src="logo_icon_src/icon_nagad.svg" alt="">
+          নগদ
+        </span>
+      </div>
+    </div>
+
+    <!-- PAYMENT CARDS -->
+    <div class="payment-cards">
+      <!-- BKASH -->
+      <div class="pay-card bkash-card reveal">
+        <div class="pay-header">
+          <img src="logo_icon_src/icon_bkash.svg" alt="bKash" class="pay-icon">
+          <div class="bkash-logo">bKash <span>বিকাশ সেন্ড মানি</span></div>
+        </div>
+        <div class="pay-body">
+          <div class="pay-number-label">বিকাশ নম্বর</div>
+          <div class="pay-number-val" style="color: var(--bkash);">880 1627-053081</div>
+          <div class="pay-steps">
+            <div class="pay-step">
+              <div class="ps-num" style="background: var(--bkash);">১</div>
+              <div class="ps-text">বিকাশ অ্যাপ খুলুন এবং "সেন্ড মানি" বেছে নিন</div>
+            </div>
+            <div class="pay-step">
+              <div class="ps-num" style="background: var(--bkash);">২</div>
+              <div class="ps-text">নম্বর দিন: <strong>8801627053081</strong></div>
+            </div>
+            <div class="pay-step">
+              <div class="ps-num" style="background: var(--bkash);">৩</div>
+              <div class="ps-text">পরিমাণ লিখুন এবং রেফারেন্সে "ফালাক দান" লিখুন</div>
+            </div>
+            <div class="pay-step">
+              <div class="ps-num" style="background: var(--bkash);">৪</div>
+              <div class="ps-text">পিন নম্বর দিয়ে কনফার্ম করুন।</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAGAD -->
+      <div class="pay-card nagad-card reveal">
+        <div class="pay-header">
+          <img src="logo_icon_src/icon_nagad.svg" alt="Nagad" class="pay-icon">
+          <div class="nagad-logo">Nagad <span>নগদ সেন্ড মানি</span></div>
+        </div>
+        <div class="pay-body">
+          <div class="pay-number-label">নগদ নম্বর</div>
+          <div class="pay-number-val nagad-num">880 1627-053081</div>
+          <div class="pay-steps">
+            <div class="pay-step">
+              <div class="ps-num" style="background: var(--nagad);">১</div>
+              <div class="ps-text">নগদ অ্যাপ বা *167# ডায়াল করে নগদ খুলুন</div>
+            </div>
+            <div class="pay-step">
+              <div class="ps-num" style="background: var(--nagad);">২</div>
+              <div class="ps-text">"সেন্ড মানি" বেছে নিন এবং নম্বর দিন: <strong>+8801627053081</strong></div>
+            </div>
+            <div class="pay-step">
+              <div class="ps-num" style="background: var(--nagad);">৩</div>
+              <div class="ps-text">পরিমাণ লিখুন এবং রেফারেন্সে "ফালাক দান" উল্লেখ করুন</div>
+            </div>
+            <div class="pay-step">
+              <div class="ps-num" style="background: var(--nagad);">৪</div>
+              <div class="ps-text">পিন দিয়ে নিশ্চিত করুন। জাজাকাল্লাহু খাইরান!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AFTER PAYMENT -->
+    <div class="reveal" style="background: var(--green-light); border-radius: 16px; padding: 25px 30px; border-left: 4px solid var(--green-dark); max-width: 700px; margin: 0 auto;">
+      <p style="font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 17px; color: var(--green-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+        <img src="logo_icon_src/icon_after_donate.svg" alt="" style="width:20px;height:20px;">
+        দান করার পর...
+      </p>
+      <p style="font-size: 14px; color: var(--text-mid); line-height: 1.8;">দান সম্পন্ন করার পর স্ক্রিনশট নিন এবং আমাদের WhatsApp নম্বরে (<a href="https://wa.me/8801791558010" style="color: var(--orange); font-weight: 600;">+880 1791-558010</a>) পাঠিয়ে দিন। আমরা আপনাকে রসিদ ও কৃতজ্ঞতা বার্তা পাঠাব ইনশাআল্লাহ।</p>
+    </div>
+  </div>
+</section>
+
+<!-- AMOUNTS -->
+<section class="amounts-section">
+  <div class="section-inner">
+    <p class="section-label reveal center">পরিমাণ বেছে নিন</p>
+    <h2 class="section-title reveal center">কত টাকা <span>দিতে পারেন?</span></h2>
+    <div class="divider reveal" style="margin: 15px auto 10px;"></div>
+    <p class="reveal" style="text-align: center; font-size: 15px; color: var(--text-mid);">যে কোনো পরিমাণ দান আল্লাহর কাছে মূল্যবান। আপনার সাধ্যমতো দান করুন।</p>
+    <div class="amounts-grid">
+      <div class="amount-card reveal">
+        <div class="amount-tk">৫০ ৳</div>
+        <div class="amount-note">একটি ছোট কল্যাণ</div>
+      </div>
+      <div class="amount-card reveal">
+        <div class="amount-tk">১০০ ৳</div>
+        <div class="amount-note">একদিনের সহায়তা</div>
+      </div>
+      <div class="amount-card amount-card-popular reveal">
+        <div class="popular-badge">জনপ্রিয়</div>
+        <div class="amount-tk">৫০০ ৳</div>
+        <div class="amount-note">সাপ্তাহিক কার্যক্রম</div>
+      </div>
+      <div class="amount-card reveal">
+        <div class="amount-tk">১০০০ ৳</div>
+        <div class="amount-note">মাসিক সহায়তা</div>
+      </div>
+      <div class="amount-card reveal">
+        <div class="amount-tk">৫০০০ ৳</div>
+        <div class="amount-note">বিশেষ পৃষ্ঠপোষকতা</div>
+      </div>
+      <div class="amount-card reveal">
+        <div class="amount-tk">যেকোনো</div>
+        <div class="amount-note">আপনার ইচ্ছামতো</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact-section">
+  <div class="section-inner">
+    <p class="section-label reveal">আপনার দানের প্রভাব</p>
+    <h2 class="section-title reveal">আপনার টাকা কোথায় <span>যায়?</span></h2>
+    <div class="divider reveal"></div>
+    <div class="impact-grid">
+      <div class="impact-card impact-card-1 reveal">
+        <div class="impact-amount" style="color: var(--bkash);">৪০%</div>
+        <div class="impact-title">শিক্ষা কার্যক্রম</div>
+        <p class="impact-desc">বিনামূল্যে কুরআন শিক্ষা, ইসলামি সেমিনার ও যুব প্রশিক্ষণের জন্য ব্যয় হয়।</p>
+      </div>
+      <div class="impact-card impact-card-2 reveal">
+        <div class="impact-amount" style="color: var(--nagad);">৩৫%</div>
+        <div class="impact-title">সামাজিক সেবা</div>
+        <p class="impact-desc">বিভিন্ন ধরনের সচেতনতামূলক ক্যাম্পেইন ও সামাজিক কল্যাণমূলক প্রকল্পে ব্যয় হয়।</p>
+      </div>
+      <div class="impact-card impact-card-3 reveal">
+        <div class="impact-amount" style="color: var(--green-dark);">২৫%</div>
+        <div class="impact-title">সাংগঠনিক উন্নয়ন</div>
+        <p class="impact-desc">সংগঠনের বিস্তার, নতুন শাখা স্থাপন ও কার্যক্রমের মান উন্নয়নে ব্যয় হয়।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QURAN -->
+<section class="quran-section">
+  <div class="q-inner">
+    <h2 class="q-title reveal">দানের ফজিলত</h2>
+    <div class="q-card reveal">
+      <div class="q-arabic">إِنَّ الْمُصَّدِّقِينَ وَالْمُصَّدِّقَاتِ وَأَقْرَضُوا اللَّهَ قَرْضًا حَسَنًا يُضَاعَفُ لَهُمْ</div>
+      <p class="q-trans">নিশ্চয়ই যে সকল পুরুষ ও নারী দান করে এবং আল্লাহকে উত্তম ঋণ দেয়, তা তাদের জন্য বহুগুণ বৃদ্ধি করা হবে।</p>
+      <div class="q-ref">— সূরা আল-হাদীদ: ১৮</div>
+    </div>
+    <p class="reveal" style="color: rgba(255,255,255,0.85); font-size: 16px; line-height: 1.9;">আপনার প্রতিটি দান আখিরাতে আপনার পাথেয় হবে। আল্লাহ আপনার দানকে কবুল করুন এবং দুনিয়া-আখিরাতে উত্তম প্রতিদান দিন। আমিন।</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="section-inner">
+    <p class="section-label reveal center">সাধারণ প্রশ্নোত্তর</p>
+    <h2 class="section-title reveal center">আপনার <span>প্রশ্নসমূহ</span></h2>
+    <div class="divider reveal" style="margin: 15px auto 40px;"></div>
+    <div class="faq-grid">
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">দান কি নিরাপদ? <span class="faq-icon">+</span></div>
+        <div class="faq-a">হ্যাঁ, আপনার দান সম্পূর্ণ নিরাপদ। বিকাশ ও নগদ উভয়ই নিরাপদ মোবাইল ব্যাংকিং প্ল্যাটফর্ম। দান করার পর স্ক্রিনশট নিয়ে আমাদের হোয়াটসঅ্যাপে পাঠান, আমরা নিশ্চিতকরণ পাঠাব।</div>
+      </div>
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">দানের রসিদ পাব কি? <span class="faq-icon">+</span></div>
+        <div class="faq-a">অবশ্যই। দান করার পর WhatsApp-এ স্ক্রিনশট পাঠালে আমরা আপনাকে ধন্যবাদ বার্তা ও রসিদ পাঠাব ইনশাআল্লাহ।</div>
+      </div>
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">মাসিক দান করতে পারব? <span class="faq-icon">+</span></div>
+        <div class="faq-a">জি, আপনি প্রতি মাসে দান করতে পারবেন। নিয়মিত দানকারীদের জন্য আমাদের বিশেষ "মাসিক দাতা" প্রোগ্রাম রয়েছে।</div>
+      </div>
+      <div class="faq-item reveal" onclick="toggleFaq(this)">
+        <div class="faq-q">সর্বনিম্ন কত টাকা দান করা যায়? <span class="faq-icon">+</span></div>
+        <div class="faq-a">সর্বনিম্ন পরিমাণের কোনো নির্দিষ্ট সীমা নেই। যতটুকু পারেন, ততটুকুই দান করুন। আল্লাহ সকল দান কবুল করেন।</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo-wrap">
+    <img src="logo_icon_src/logo_footer.svg" alt="ফালাক ইউথ অর্গানাইজেশন" height="40">
+  </div>
+  <p style="font-size: 14px; margin-bottom: 15px; color: #888;">ইসলামি মূল্যবোধ ও যুব সামাজিক সংকট মোকাবেলায় প্রতিশ্রুতিবদ্ধ</p>
+  <div class="footer-links">
+    <a href="index.html">হোম</a>
+    <a href="about.html">আমাদের সম্পর্কে</a>
+    <a href="join.html">যোগ দিন</a>
+    <a href="donate.html">দান করুন</a>
+  </div>
+  <div class="footer-phone">
+    <img src="logo_icon_src/icon_phone.svg" alt="">
+    দানের জন্য: <span style="color: var(--orange); font-weight: 600;">880 1627-053081</span> (bKash/Nagad)
+  </div>
+  <div class="footer-copy">&copy; 2024 Falaq Youth Organization. All rights reserved.</div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+
+  function copyNumber() {
+    navigator.clipboard.writeText('+8801627053081').then(() => {
+      const btn = event.target.closest('.pn-copy');
+      const original = btn.innerHTML;
+      btn.innerHTML = '✅ কপি হয়েছে!';
+      setTimeout(() => { btn.innerHTML = original; }, 2000);
+    });
+  }
+
+  function toggleFaq(el) {
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

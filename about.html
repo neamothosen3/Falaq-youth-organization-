@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About us-Falaq youth organization</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&family=Anek+Bangla:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #f25b31;
+    --warm-red: #d93025;
+    --green-light: #e8f5e9;
+    --green-mid: #a5d6a7;
+    --green-dark: #2e7d32;
+    --white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-mid: #444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Hind Siliguri', sans-serif; color: var(--text-dark); background: var(--white); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(10px);
+    border-bottom: 3px solid var(--orange); padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px; box-shadow: 0 2px 20px rgba(242,91,49,0.15);
+  }
+  .logo { display: flex; align-items: center; text-decoration: none; }
+  .logo img { height: 48px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 15px; font-weight: 500; position: relative; padding-bottom: 4px; transition: color 0.3s; }
+  .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--orange); transition: width 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--orange); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+  .hamburger span { display: block; width: 26px; height: 3px; background: var(--orange); border-radius: 2px; transition: all 0.3s; }
+  .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; background: white; border-bottom: 3px solid var(--orange); padding: 20px; z-index: 999; }
+  .mobile-menu a { display: flex; align-items: center; gap: 10px; padding: 12px 0; color: var(--text-dark); text-decoration: none; font-size: 16px; border-bottom: 1px solid #eee; }
+  .mobile-menu a img { width: 20px; height: 20px; }
+  .mobile-menu a:hover { color: var(--orange); }
+  .mobile-menu.open { display: block; }
+
+  /* PAGE HERO */
+  .page-hero {
+    padding-top: 70px; min-height: 380px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    display: flex; align-items: center; position: relative; overflow: hidden;
+  }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(242,91,49,0.2), rgba(46,125,50,0.15)); }
+  .page-hero-inner { max-width: 1200px; width: 90%; margin: 0 auto; position: relative; z-index: 1; padding: 60px 0; }
+  .breadcrumb { display: flex; gap: 10px; align-items: center; margin-bottom: 20px; }
+  .breadcrumb a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; transition: color 0.3s; }
+  .breadcrumb a:hover { color: var(--orange); }
+  .breadcrumb span { color: rgba(255,255,255,0.3); font-size: 13px; }
+  .page-title { font-family: 'Anek Bangla', sans-serif; font-weight: 800; font-size: clamp(32px, 5vw, 56px); color: white; margin-bottom: 15px; }
+  .page-subtitle { font-size: 17px; color: rgba(255,255,255,0.7); max-width: 600px; line-height: 1.8; }
+
+  /* CONTENT */
+  section { padding: 80px 5%; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 13px; color: var(--orange); font-weight: 600; letter-spacing: 2px; margin-bottom: 10px; }
+  .section-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: clamp(24px, 3.5vw, 38px); color: var(--text-dark); margin-bottom: 15px; }
+  .section-title span { color: var(--orange); }
+  .divider { width: 60px; height: 4px; background: linear-gradient(90deg, var(--orange), var(--warm-red)); border-radius: 2px; margin: 15px 0 35px; }
+  .body-text { font-size: 16px; color: var(--text-mid); line-height: 1.9; margin-bottom: 20px; }
+
+  /* HISTORY */
+  .history-section { background: var(--white); }
+  .history-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .history-visual { background: linear-gradient(135deg, var(--orange), var(--warm-red)); border-radius: 24px; padding: 60px 40px; text-align: center; color: white; position: relative; overflow: hidden; }
+  .history-visual::before { content: ''; position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.08); }
+  .history-visual .big-year { font-family: 'Anek Bangla', sans-serif; font-weight: 800; font-size: 80px; display: block; }
+  .history-visual .year-label { font-size: 18px; opacity: 0.9; }
+  .history-visual .year-desc { font-size: 14px; opacity: 0.8; margin-top: 10px; line-height: 1.7; }
+
+  /* TIMELINE */
+  .timeline-section { background: var(--green-light); }
+  .timeline { position: relative; padding-left: 40px; }
+  .timeline::before { content: ''; position: absolute; left: 12px; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--orange), var(--green-mid)); border-radius: 2px; }
+  .timeline-item { position: relative; margin-bottom: 40px; }
+  .timeline-item::before { content: ''; position: absolute; left: -37px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--orange); border: 3px solid white; box-shadow: 0 0 0 3px var(--orange); }
+  .timeline-year { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 14px; color: var(--orange); margin-bottom: 6px; }
+  .timeline-content { background: white; border-radius: 14px; padding: 22px 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+  .timeline-content h3 { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 8px; }
+  .timeline-content p { font-size: 14px; color: var(--text-mid); line-height: 1.8; }
+
+  /* VISION MISSION */
+  .vision-section { background: var(--white); }
+  .vm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  .vm-card { border-radius: 20px; padding: 40px 35px; }
+  .vm-card.vision { background: linear-gradient(135deg, var(--orange), var(--warm-red)); color: white; }
+  .vm-card.mission { background: var(--green-light); border: 2px solid var(--green-mid); }
+  .vm-icon { width: 44px; height: 44px; margin-bottom: 20px; display: block; }
+  .vm-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 26px; margin-bottom: 15px; }
+  .vm-card.mission .vm-title { color: var(--green-dark); }
+  .vm-text { font-size: 15px; line-height: 1.9; }
+  .vm-card.vision .vm-text { color: rgba(255,255,255,0.9); }
+  .vm-card.mission .vm-text { color: var(--text-mid); }
+
+  /* VALUES */
+  .values-section { background: var(--green-light); }
+  .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .value-card { background: white; border-radius: 16px; padding: 30px 24px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: transform 0.3s; border-top: 4px solid var(--orange); }
+  .value-card:hover { transform: translateY(-5px); }
+  .value-icon { width: 38px; height: 38px; margin: 0 auto 15px; display: block; }
+  .value-name { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 10px; color: var(--text-dark); }
+  .value-desc { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+
+  /* ISLAMIC GUIDANCE */
+  .islamic-section { background: #1a1a1a; padding: 80px 5%; }
+  .islamic-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .quran-card { background: linear-gradient(135deg, rgba(242,91,49,0.15), rgba(46,125,50,0.1)); border: 1px solid rgba(242,91,49,0.3); border-radius: 24px; padding: 50px 40px; margin-bottom: 30px; }
+  .arabic-text { font-size: 28px; color: #f5c842; margin-bottom: 20px; line-height: 1.8; direction: rtl; }
+  .quran-translation { font-size: 16px; color: rgba(255,255,255,0.8); line-height: 1.9; margin-bottom: 15px; }
+  .quran-ref { font-size: 13px; color: var(--orange); }
+  .guidance-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: clamp(24px, 3.5vw, 36px); color: white; margin-bottom: 15px; }
+  .guidance-desc { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.9; }
+
+  footer { background: #111; color: #ccc; padding: 50px 5% 30px; text-align: center; }
+  .footer-logo-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
+  .footer-logo-wrap img { height: 40px; width: auto; }
+  .footer-links { display: flex; justify-content: center; gap: 25px; margin: 20px 0; flex-wrap: wrap; }
+  .footer-links a { color: #aaa; text-decoration: none; font-size: 14px; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-copy { font-size: 13px; color: #666; margin-top: 20px; }
+
+  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .history-grid, .vm-grid { grid-template-columns: 1fr; }
+    .history-visual .big-year { font-size: 60px; }
+    .quran-card { padding: 30px 20px; }
+    .arabic-text { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <img src="logo_icon_src/logo_header.svg" alt="ফালাক লোগো" height="48">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">হোম</a></li>
+    <li><a href="about.html" class="active">আমাদের সম্পর্কে</a></li>
+    <li><a href="join.html">যোগ দিন</a></li>
+    <li><a href="donate.html">দান করুন</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html"><img src="logo_icon_src/icon_nav_home.svg" alt=""> হোম</a>
+  <a href="about.html"><img src="logo_icon_src/icon_nav_about.svg" alt=""> আমাদের সম্পর্কে</a>
+  <a href="join.html"><img src="logo_icon_src/icon_nav_join.svg" alt=""> যোগ দিন</a>
+  <a href="donate.html"><img src="logo_icon_src/icon_nav_donate.svg" alt=""> দান করুন</a>
+</div>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">হোম</a>
+      <span>›</span>
+      <span style="color: rgba(255,255,255,0.8);">আমাদের সম্পর্কে</span>
+    </div>
+    <h1 class="page-title">আমাদের সম্পর্কে</h1>
+    <p class="page-subtitle">ফালাক ইউথ অর্গানাইজেশন এর ইতিহাস, দর্শন ও ইসলামি নির্দেশিকা সম্পর্কে বিস্তারিত জানুন।</p>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<section class="history-section">
+  <div class="section-inner">
+    <div class="history-grid">
+      <div class="reveal">
+        <p class="section-label">আমাদের গল্প</p>
+        <h2 class="section-title">সংগঠনের <span>ইতিহাস</span></h2>
+        <div class="divider"></div>
+        <p class="body-text">ফালাক ইউথ অর্গানাইজেশন এর সূচনা হয়েছিল একটি ছোট স্বপ্ন থেকে — একটি এমন সংগঠন গড়ার স্বপ্ন, যেখানে যুব সমাজ ইসলামের আলোয় আলোকিত হবে এবং সমাজের কল্যাণে কাজ করবে।</p>
+        <p class="body-text">কয়েকজন নিবেদিতপ্রাণ তরুণের উদ্যোগে শুরু হয়ে আজ এই সংগঠন দেশের একাধিক জেলায় তার কার্যক্রম বিস্তার করেছে। প্রতিষ্ঠার পর থেকে আমরা সর্বদা ইসলামি মূল্যবোধ ও নৈতিকতার ভিত্তিতে কাজ করে আসছি।</p>
+        <p class="body-text">আমাদের প্রতিষ্ঠাতারা বিশ্বাস করতেন যে, সঠিক নেতৃত্ব ও দিকনির্দেশনা পেলে প্রতিটি যুবকই একটি উজ্জ্বল ভবিষ্যৎ গড়তে পারে। সেই বিশ্বাসই আমাদের অনুপ্রেরণার উৎস।</p>
+      </div>
+      <div class="history-visual reveal">
+        <span class="big-year">২০২৫</span>
+        <div class="year-label">প্রতিষ্ঠাবর্ষ</div>
+        <div class="year-desc" style="margin-top: 20px;">
+          ছোট একটি উদ্যোগ আজ পরিণত হয়েছে বৃহৎ পরিবারে।
+          ৫০০+ সদস্য নিয়ে আমরা এগিয়ে চলেছি আলোর পথে।
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="section-inner">
+    <p class="section-label reveal">পথচলার ইতিহাস</p>
+    <h2 class="section-title reveal">মাইলফলক <span>সমূহ</span></h2>
+    <div class="divider reveal"></div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-year">২০২৫</div>
+        <div class="timeline-content">
+          <h3>প্রতিষ্ঠা</h3>
+          <p>কয়েকজন উৎসাহী তরুণের উদ্যোগে ফালাক যুব সংগঠনের যাত্রা শুরু। প্রথম কার্যকরী কমিটি গঠন ও সংবিধান প্রণয়ন।</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">২০২৫</div>
+        <div class="timeline-content">
+          <h3>সম্প্রসারণ</h3>
+          <p>সংগঠনের সদস্যসংখ্যা ১০০ ছাড়িয়ে গেল। ৫টি জেলায় কার্যক্রম শুরু। প্রথম বার্ষিক সম্মেলন আয়োজন।</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">২০২৫</div>
+        <div class="timeline-content">
+          <h3>সামাজিক কার্যক্রম</h3>
+          <p>ভালোবাসা নামক চড়ম অশ্লীল, নৈতিক অবক্ষয় ও মাদকবিরোধী সচেতনতা ক্যাম্পেইন পরিচালনা।</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">২০২৫</div>
+        <div class="timeline-content">
+          <h3>ডিজিটাল বিস্তার</h3>
+          <p>অনলাইন প্ল্যাটফর্মে কার্যক্রম শুরু। ইসলামি জ্ঞানচর্চা ও যুব উন্নয়ন প্রশিক্ষণ অনলাইনে পরিচালনা।</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-year">২০২৬</div>
+        <div class="timeline-content">
+          <h3>নতুন দিগন্ত</h3>
+          <p>২টি জেলায় কার্যক্রম বিস্তার। ৫০০+ সক্রিয় সদস্য নিয়ে আমরা এখন জাতীয় পর্যায়ে কাজ করছি।</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISION MISSION -->
+<section class="vision-section">
+  <div class="section-inner">
+    <p class="section-label reveal">আমাদের দিকনির্দেশনা</p>
+    <h2 class="section-title reveal">দৃষ্টিভঙ্গি ও <span>লক্ষ্য</span></h2>
+    <div class="divider reveal"></div>
+    <div class="vm-grid">
+      <div class="vm-card vision reveal">
+        <img src="logo_icon_src/icon_about_vision.svg" alt="" class="vm-icon">
+        <div class="vm-title">আমাদের দৃষ্টিভঙ্গি</div>
+        <p class="vm-text">আমরা স্বপ্ন দেখি এমন একটি সমাজের, যেখানে প্রতিটি যুবক ইসলামের সুশীতল ছায়ায় বেড়ে উঠবে। একটি নৈতিক, ন্যায়বিচারপূর্ণ ও মানবিক সমাজ গঠনে যুব সমাজ অগ্রণী ভূমিকা রাখবে — এটাই আমাদের মূল দৃষ্টিভঙ্গি।</p>
+      </div>
+      <div class="vm-card mission reveal">
+        <img src="logo_icon_src/icon_about_mission.svg" alt="" class="vm-icon">
+        <div class="vm-title">আমাদের লক্ষ্য</div>
+        <p class="vm-text">ইসলামি মূল্যবোধের আলোকে যুব সমাজকে শিক্ষিত, দক্ষ ও নৈতিকভাবে সচেতন করে গড়ে তোলা। সামাজিক সংকট মোকাবেলায় সক্রিয় ভূমিকা রাখা এবং সমাজের ইতিবাচক পরিবর্তনে অবদান রাখা।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+  <div class="section-inner">
+    <p class="section-label reveal">আমাদের মূলনীতি</p>
+    <h2 class="section-title reveal">মূল <span>মূল্যবোধ</span></h2>
+    <div class="divider reveal"></div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <img src="logo_icon_src/icon_value_tawhid.svg" alt="" class="value-icon">
+        <div class="value-name">তাওহীদ</div>
+        <p class="value-desc">আল্লাহর একত্বে বিশ্বাস এবং সকল কাজে তাঁর সন্তুষ্টি অর্জন আমাদের প্রথম লক্ষ্য।</p>
+      </div>
+      <div class="value-card reveal">
+        <img src="logo_icon_src/icon_value_service.svg" alt="" class="value-icon">
+        <div class="value-name">সেবা</div>
+        <p class="value-desc">মানুষের সেবাই আল্লাহর সেবা — এই বিশ্বাসে আমরা কাজ করি।</p>
+      </div>
+      <div class="value-card reveal">
+        <img src="logo_icon_src/icon_value_justice.svg" alt="" class="value-icon">
+        <div class="value-name">ন্যায়বিচার</div>
+        <p class="value-desc">সকল পরিস্থিতিতে ন্যায়বিচার প্রতিষ্ঠা ইসলামের মূল শিক্ষা।</p>
+      </div>
+      <div class="value-card reveal">
+        <img src="logo_icon_src/icon_value_knowledge.svg" alt="" class="value-icon">
+        <div class="value-name">জ্ঞান</div>
+        <p class="value-desc">ইলম অর্জন করা প্রতিটি মুসলিমের ফরজ — আমরা এই শিক্ষা প্রচার করি।</p>
+      </div>
+      <div class="value-card reveal">
+        <img src="logo_icon_src/icon_value_unity.svg" alt="" class="value-icon">
+        <div class="value-name">ঐক্য</div>
+        <p class="value-desc">মুসলিম উম্মাহর ঐক্য ও ভ্রাতৃত্ব আমাদের শক্তির উৎস।</p>
+      </div>
+      <div class="value-card reveal">
+        <img src="logo_icon_src/icon_value_ikhlas.svg" alt="" class="value-icon">
+        <div class="value-name">ইখলাস</div>
+        <p class="value-desc">নিষ্ঠা ও একমাত্র আল্লাহর সন্তুষ্টির জন্য কাজ করাই আমাদের প্রেরণা।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ISLAMIC GUIDANCE -->
+<section class="islamic-section">
+  <div class="islamic-inner">
+    <p class="section-label reveal" style="color: var(--orange); text-align: center;">কুরআনের আলো</p>
+    <h2 class="guidance-title reveal">ইসলামি পথনির্দেশনা</h2>
+    <p class="guidance-desc reveal" style="margin: 0 auto 40px; max-width: 600px;">আমাদের প্রতিটি কার্যক্রম কুরআন ও সুন্নাহর নির্দেশনায় পরিচালিত। আল্লাহর বাণী আমাদের পথ দেখায়।</p>
+    <div class="quran-card reveal">
+      <div class="arabic-text">كُنتُمۡ خَيۡرَ أُمَّةٍ أُخۡرِجَتۡ لِلنَّاسِ</div>
+      <p class="quran-translation">"তোমরাই সর্বোত্তম জাতি, মানবজাতির জন্য তোমাদের উত্থান হয়েছে।"</p>
+      <div class="quran-ref">— সূরা আলে-ইমরান: ১১০</div>
+    </div>
+    <div class="quran-card reveal" style="margin-top: 20px;">
+      <div class="arabic-text">وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم مِّن قُوَّةٍ</div>
+      <p class="quran-translation">"তোমাদের সাধ্যমতো সব শক্তি প্রস্তুত রাখো।"</p>
+      <div class="quran-ref">— সূরা আনফাল: ৬০</div>
+    </div>
+    <p class="guidance-desc reveal" style="margin-top: 30px;">এই আয়াতগুলো আমাদের স্মরণ করিয়ে দেয় যে, মুসলিম যুবকরা কেবল নিজেদের জন্য নয়, গোটা মানবজাতির কল্যাণে কাজ করার জন্য মনোনীত।</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo-wrap">
+    <img src="logo_icon_src/logo_footer.svg" alt="ফালাক ইউথ অর্গানাইজেশন" height="40">
+  </div>
+  <p style="font-size: 14px; margin-bottom: 15px; color: #888;">ইসলামি মূল্যবোধ ও যুব সামাজিক সংকট মোকাবেলায় প্রতিশ্রুতিবদ্ধ</p>
+  <div class="footer-links">
+    <a href="index.html">হোম</a>
+    <a href="about.html">আমাদের সম্পর্কে</a>
+    <a href="join.html">যোগ দিন</a>
+    <a href="donate.html">দান করুন</a>
+  </div>
+  <div class="footer-copy">&copy; 2024 Falaq Youth Organization. All rights reserved.</div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

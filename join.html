@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>join us-Falaq youth organization</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&family=Anek+Bangla:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #f25b31;
+    --warm-red: #d93025;
+    --green-light: #e8f5e9;
+    --green-mid: #a5d6a7;
+    --green-dark: #2e7d32;
+    --white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-mid: #444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Hind Siliguri', sans-serif; color: var(--text-dark); background: var(--white); overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.97); backdrop-filter: blur(10px);
+    border-bottom: 3px solid var(--orange); padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px; box-shadow: 0 2px 20px rgba(242,91,49,0.15);
+  }
+  .logo { display: flex; align-items: center; text-decoration: none; }
+  .logo img { height: 48px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 15px; font-weight: 500; position: relative; padding-bottom: 4px; transition: color 0.3s; }
+  .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--orange); transition: width 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--orange); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+  .hamburger span { display: block; width: 26px; height: 3px; background: var(--orange); border-radius: 2px; }
+  .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; background: white; border-bottom: 3px solid var(--orange); padding: 20px; z-index: 999; }
+  .mobile-menu a { display: flex; align-items: center; gap: 10px; padding: 12px 0; color: var(--text-dark); text-decoration: none; font-size: 16px; border-bottom: 1px solid #eee; }
+  .mobile-menu a img { width: 20px; height: 20px; }
+  .mobile-menu a:hover { color: var(--orange); }
+  .mobile-menu.open { display: block; }
+
+  /* HERO */
+  .join-hero {
+    padding-top: 70px; min-height: 100vh;
+    background: linear-gradient(135deg, var(--green-light) 0%, #f0faf0 100%);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .join-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(242,91,49,0.08) 0%, transparent 70%);
+  }
+  .join-inner { max-width: 800px; margin: 0 auto; padding: 60px 5%; position: relative; z-index: 1; }
+  .join-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: white; border: 2px solid var(--green-mid);
+    color: var(--green-dark); padding: 8px 20px; border-radius: 30px;
+    font-size: 14px; font-weight: 500; margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  }
+  .join-badge img { width: 20px; height: 20px; }
+  .join-title { font-family: 'Anek Bangla', sans-serif; font-weight: 800; font-size: clamp(36px, 6vw, 68px); color: var(--text-dark); line-height: 1.15; margin-bottom: 20px; }
+  .join-title span { color: var(--orange); }
+  .join-desc { font-size: 18px; color: var(--text-mid); line-height: 1.9; margin-bottom: 50px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+  /* WHATSAPP BUTTON */
+  .whatsapp-btn-wrapper { margin-bottom: 30px; }
+  .whatsapp-btn {
+    display: inline-flex; align-items: center; gap: 16px;
+    background: #25D366;
+    color: white; text-decoration: none;
+    padding: 22px 50px; border-radius: 60px;
+    font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 24px;
+    box-shadow: 0 12px 40px rgba(37,211,102,0.45);
+    transition: all 0.3s; position: relative; overflow: hidden;
+    animation: pulseShadow 2s ease-in-out infinite;
+  }
+  .whatsapp-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    border-radius: inherit;
+  }
+  .whatsapp-btn:hover { transform: translateY(-4px) scale(1.03); box-shadow: 0 20px 60px rgba(37,211,102,0.55); }
+  @keyframes pulseShadow {
+    0%, 100% { box-shadow: 0 12px 40px rgba(37,211,102,0.45); }
+    50% { box-shadow: 0 12px 60px rgba(37,211,102,0.65), 0 0 0 10px rgba(37,211,102,0.1); }
+  }
+  .wa-icon { font-size: 36px; }
+  .btn-text-group { display: flex; flex-direction: column; text-align: left; }
+  .btn-main-text { font-size: 22px; }
+  .btn-sub-text { font-size: 13px; opacity: 0.9; font-family: 'Hind Siliguri', sans-serif; font-weight: 400; }
+  .wa-number { margin-top: 15px; font-size: 14px; color: var(--text-mid); }
+  .wa-number a { color: var(--green-dark); font-weight: 600; text-decoration: none; }
+
+  /* WHY JOIN */
+  .why-join { background: var(--white); padding: 90px 5%; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .center-head { text-align: center; }
+  .section-label { font-size: 13px; color: var(--orange); font-weight: 600; letter-spacing: 2px; margin-bottom: 10px; }
+  .section-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: clamp(24px, 3.5vw, 38px); color: var(--text-dark); margin-bottom: 15px; }
+  .section-title span { color: var(--orange); }
+  .divider-center { width: 60px; height: 4px; background: linear-gradient(90deg, var(--orange), var(--warm-red)); border-radius: 2px; margin: 15px auto 40px; }
+  .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+  .benefit-card {
+    background: var(--green-light); border-radius: 20px; padding: 35px 28px;
+    border: 2px solid transparent; transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .benefit-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--orange), var(--warm-red)); }
+  .benefit-card:hover { border-color: var(--green-mid); transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+  .benefit-icon { width: 42px; height: 42px; margin-bottom: 18px; display: block; }
+  .benefit-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 19px; margin-bottom: 12px; }
+  .benefit-text { font-size: 14px; color: var(--text-mid); line-height: 1.8; }
+
+  /* PROCESS */
+  .process-section { background: var(--green-light); padding: 90px 5%; }
+  .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+  .step { text-align: center; padding: 30px 20px; position: relative; }
+  .step::after { content: '→'; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); font-size: 28px; color: var(--orange); opacity: 0.4; }
+  .step:last-child::after { display: none; }
+  .step-num { width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, var(--orange), var(--warm-red)); color: white; display: flex; align-items: center; justify-content: center; font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 24px; margin: 0 auto 20px; box-shadow: 0 6px 20px rgba(242,91,49,0.35); }
+  .step-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 17px; margin-bottom: 10px; }
+  .step-desc { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+
+  /* TESTIMONIALS */
+  .testimonials { background: linear-gradient(135deg, var(--orange), var(--warm-red)); padding: 80px 5%; }
+  .test-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .test-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: clamp(24px, 3.5vw, 36px); color: white; margin-bottom: 40px; }
+  .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+  .test-card { background: rgba(255,255,255,0.12); backdrop-filter: blur(5px); border-radius: 18px; padding: 28px 24px; border: 1px solid rgba(255,255,255,0.2); text-align: left; }
+  .test-quote { font-size: 15px; color: rgba(255,255,255,0.9); line-height: 1.8; margin-bottom: 20px; }
+  .test-author { display: flex; align-items: center; gap: 12px; }
+  .test-avatar { width: 52px; height: 52px; border-radius: 50%; overflow: hidden; border: 3px solid rgba(255,255,255,0.4); flex-shrink: 0; }
+  .test-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .test-name { color: white; font-weight: 600; font-size: 14px; }
+  .test-loc { color: rgba(255,255,255,0.7); font-size: 12px; }
+
+  /* CTA BOTTOM */
+  .cta-bottom { background: var(--white); padding: 80px 5%; text-align: center; }
+  .cta-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: clamp(26px, 4vw, 42px); margin-bottom: 15px; }
+  .cta-desc { font-size: 16px; color: var(--text-mid); margin-bottom: 35px; }
+
+  footer { background: #111; color: #ccc; padding: 50px 5% 30px; text-align: center; }
+  .footer-logo-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
+  .footer-logo-wrap img { height: 40px; width: auto; }
+  .footer-links { display: flex; justify-content: center; gap: 25px; margin: 20px 0; flex-wrap: wrap; }
+  .footer-links a { color: #aaa; text-decoration: none; font-size: 14px; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-copy { font-size: 13px; color: #666; margin-top: 20px; }
+
+  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .whatsapp-btn { padding: 18px 30px; font-size: 20px; }
+    .btn-main-text { font-size: 18px; }
+    .step::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <img src="logo_icon_src/logo_header.svg" alt="ফালাক লোগো" height="48">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">হোম</a></li>
+    <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+    <li><a href="join.html" class="active">যোগ দিন</a></li>
+    <li><a href="donate.html">দান করুন</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html"><img src="logo_icon_src/icon_nav_home.svg" alt=""> হোম</a>
+  <a href="about.html"><img src="logo_icon_src/icon_nav_about.svg" alt=""> আমাদের সম্পর্কে</a>
+  <a href="join.html"><img src="logo_icon_src/icon_nav_join.svg" alt=""> যোগ দিন</a>
+  <a href="donate.html"><img src="logo_icon_src/icon_nav_donate.svg" alt=""> দান করুন</a>
+</div>
+
+<!-- MAIN HERO -->
+<section class="join-hero">
+  <div class="join-inner">
+    <div class="join-badge reveal">
+      <img src="logo_icon_src/icon_join_badge.svg" alt="">
+      আলোর পরিবারে স্বাগতম
+    </div>
+    <h1 class="join-title reveal">
+      আমাদের সাথে <span>যোগ দিন</span><br>পরিবর্তন আনুন
+    </h1>
+    <p class="join-desc reveal">
+      ফালাক ইউথ অর্গানাইজেশন এর সাথে যুক্ত হয়ে আপনার সমাজকে আলোকিত করুন।
+      আপনার প্রতিটি পদক্ষেপ একটি পরিবর্তনের সূচনা করতে পারে।
+    </p>
+
+    <div class="whatsapp-btn-wrapper reveal">
+      <a href="https://wa.me/8801791558010" target="_blank" rel="noopener" class="whatsapp-btn">
+        <div class="btn-text-group">
+          <span class="btn-main-text">WhatsApp-এ যোগ দিন</span>
+          <span class="btn-sub-text">সরাসরি আমাদের সাথে যোগাযোগ করুন</span>
+        </div>
+      </a>
+    </div>
+    <p class="wa-number reveal">
+      WhatsApp নম্বর: <a href="https://wa.me/8801791558010">880 1791-558010</a>
+    </p>
+  </div>
+</section>
+
+<!-- WHY JOIN -->
+<section class="why-join">
+  <div class="section-inner">
+    <div class="center-head">
+      <p class="section-label reveal">সুবিধাসমূহ</p>
+      <h2 class="section-title reveal">কেন <span>যোগ দেবেন?</span></h2>
+      <div class="divider-center reveal"></div>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card reveal">
+        <img src="logo_icon_src/icon_benefit_ilm.svg" alt="" class="benefit-icon">
+        <h3 class="benefit-title">ইসলামি জ্ঞান অর্জন</h3>
+        <p class="benefit-text">নিয়মিত দীনি হালাকা, পাঠচক্র ও সিরাত আলোচনায় অংশগ্রহণের সুযোগ পাবেন।</p>
+      </div>
+      <div class="benefit-card reveal">
+        <img src="logo_icon_src/icon_benefit_leadership.svg" alt="" class="benefit-icon">
+        <h3 class="benefit-title">নেতৃত্ব বিকাশ</h3>
+        <p class="benefit-text">লিডারশিপ ট্রেনিং, প্রশিক্ষণ কর্মশালা ও মেন্টরশিপ প্রোগ্রামে অংশ নেওয়ার সুযোগ।</p>
+      </div>
+      <div class="benefit-card reveal">
+        <img src="logo_icon_src/icon_benefit_brotherhood.svg" alt="" class="benefit-icon">
+        <h3 class="benefit-title">বৃহৎ ভ্রাতৃত্ব</h3>
+        <p class="benefit-text">৫০০+ ভাইদের একটি উষ্ণ পরিবারে যুক্ত হবেন যেখানে সবাই একে অপরের পাশে।</p>
+      </div>
+      <div class="benefit-card reveal">
+        <img src="logo_icon_src/icon_benefit_award.svg" alt="" class="benefit-icon">
+        <h3 class="benefit-title">পুরস্কার ও স্বীকৃতি</h3>
+        <p class="benefit-text">সক্রিয় সদস্যদের সনদপত্র, পুরস্কার ও বিশেষ স্বীকৃতি প্রদান করা হয়।</p>
+      </div>
+      <div class="benefit-card reveal">
+        <img src="logo_icon_src/icon_benefit_education.svg" alt="" class="benefit-icon">
+        <h3 class="benefit-title">শিক্ষামূলক সুযোগ</h3>
+        <p class="benefit-text">বিনামূল্যে কোর্স, বই ও শিক্ষামূলক উপকরণ পাওয়ার সুযোগ।</p>
+      </div>
+      <div class="benefit-card reveal">
+        <img src="logo_icon_src/icon_benefit_impact.svg" alt="" class="benefit-icon">
+        <h3 class="benefit-title">সামাজিক প্রভাব</h3>
+        <p class="benefit-text">আপনার এলাকায় ইতিবাচক পরিবর্তন আনার সুযোগ এবং সমাজের উপর প্রভাব ফেলার ক্ষমতা।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section">
+  <div class="section-inner">
+    <div class="center-head">
+      <p class="section-label reveal">প্রক্রিয়া</p>
+      <h2 class="section-title reveal">কিভাবে <span>যোগ দেবেন?</span></h2>
+      <div class="divider-center reveal"></div>
+    </div>
+    <div class="steps-grid">
+      <div class="step reveal">
+        <div class="step-num">১</div>
+        <div class="step-title">WhatsApp-এ মেসেজ করুন</div>
+        <p class="step-desc">উপরের সবুজ বাটনে ক্লিক করে আমাদের WhatsApp নম্বরে মেসেজ পাঠান।</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">২</div>
+        <div class="step-title">তথ্য প্রদান করুন</div>
+        <p class="step-desc">আপনার নাম, এলাকা ও যোগ দেওয়ার কারণ সংক্ষেপে জানান।</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">৩</div>
+        <div class="step-title">যাচাই-বাছাই</div>
+        <p class="step-desc">আমাদের টিম আপনার সাথে যোগাযোগ করবে এবং ওরিয়েন্টেশনে আমন্ত্রণ জানাবে।</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">৪</div>
+        <div class="step-title">পরিবারে স্বাগতম!</div>
+        <p class="step-desc">আনুষ্ঠানিকভাবে ফালাক পরিবারের সদস্য হয়ে যান এবং কার্যক্রমে অংশ নিন।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="test-inner">
+    <h2 class="test-title reveal">সদস্যরা যা বলেন</h2>
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <p class="test-quote">"ফালাকে যোগ দেওয়ার পর আমার জীবনে ইতিবাচক পরিবর্তন এসেছে। ইসলামি মূল্যবোধ অনুযায়ী জীবন গঠনে সাহায্য পেয়েছি।"</p>
+        <div class="test-author">
+          <div class="test-avatar">
+            <img src="logo_icon_src/member_rahmat.jpg" alt="রহমত উল্লাহ">
+          </div>
+          <div>
+            <div class="test-name">রহমত উল্লাহ</div>
+            <div class="test-loc">ঢাকা, ২০২৫ সালের সদস্য</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <p class="test-quote">"এই সংগঠন আমাকে নেতৃত্বের গুণাবলি শিখিয়েছে। এখানকার ভাইয়েরা সত্যিকারের পরিবারের মতো।"</p>
+        <div class="test-author">
+          <div class="test-avatar">
+            <img src="logo_icon_src/member_fahim.jpg" alt="ফাহিম আহমেদ">
+          </div>
+          <div>
+            <div class="test-name">ফাহিম আহমেদ</div>
+            <div class="test-loc">চট্টগ্রাম, ২০২৫ সালের সদস্য</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <p class="test-quote">"মাদক থেকে ফিরে আসতে ফালাকের সাথীরা আমাকে সাহায্য করেছে। আলহামদুলিল্লাহ, আজ আমি ভালো আছি।"</p>
+        <div class="test-author">
+          <div class="test-avatar">
+            <img src="logo_icon_src/member_mahmud.jpg" alt="মাহমুদ হাসান">
+          </div>
+          <div>
+            <div class="test-name">মাহমুদ হাসান</div>
+            <div class="test-loc">রাজশাহী, ২০২৫ সালের সদস্য</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BOTTOM -->
+<section class="cta-bottom">
+  <div class="cta-title reveal">দেরি না করে আজই যোগ দিন</div>
+  <p class="cta-desc reveal">প্রতিটি মুহূর্ত মূল্যবান। আজই সিদ্ধান্ত নিন এবং আলোর পথে এগিয়ে আসুন।</p>
+  <div class="reveal">
+    <a href="https://wa.me/8801791558010" target="_blank" rel="noopener"
+       style="display: inline-flex; align-items: center; gap: 12px; background: #25D366; color: white; text-decoration: none; padding: 18px 40px; border-radius: 50px; font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 20px; box-shadow: 0 8px 30px rgba(37,211,102,0.4); transition: all 0.3s;"
+       onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='none'">
+      WhatsApp-এ যোগ দিন
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo-wrap">
+    <img src="logo_icon_src/logo_footer.svg" alt="ফালাক ইউথ অর্গানাইজেশন" height="40">
+  </div>
+  <p style="font-size: 14px; margin-bottom: 15px; color: #888;">ইসলামি মূল্যবোধ ও যুব সামাজিক সংকট মোকাবেলায় প্রতিশ্রুতিবদ্ধ</p>
+  <div class="footer-links">
+    <a href="index.html">হোম</a>
+    <a href="about.html">আমাদের সম্পর্কে</a>
+    <a href="join.html">যোগ দিন</a>
+    <a href="donate.html">দান করুন</a>
+  </div>
+  <div class="footer-copy">&copy; 2024 Falaq Youth Organization. All rights reserved.</div>
+</footer>
+
+<script>
+  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

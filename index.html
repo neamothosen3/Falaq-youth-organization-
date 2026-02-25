@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Falaq youth organization</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&family=Anek+Bangla:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #f25b31;
+    --warm-red: #d93025;
+    --green-light: #e8f5e9;
+    --green-mid: #a5d6a7;
+    --green-dark: #2e7d32;
+    --white: #ffffff;
+    --text-dark: #1a1a1a;
+    --text-mid: #444;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Hind Siliguri', sans-serif; color: var(--text-dark); background: var(--white); overflow-x: hidden; }
+
+  /* NAVBAR */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(10px);
+    border-bottom: 3px solid var(--orange);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+    box-shadow: 0 2px 20px rgba(242,91,49,0.15);
+  }
+  .logo { display: flex; align-items: center; text-decoration: none; }
+  .logo img { height: 48px; width: auto; display: block; }
+  .nav-links { display: flex; gap: 30px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-dark); font-size: 15px; font-weight: 500; position: relative; padding-bottom: 4px; transition: color 0.3s; }
+  .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--orange); transition: width 0.3s; }
+  .nav-links a:hover { color: var(--orange); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a.active { color: var(--orange); }
+  .nav-links a.active::after { width: 100%; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+  .hamburger span { display: block; width: 26px; height: 3px; background: var(--orange); border-radius: 2px; transition: all 0.3s; }
+  .mobile-menu { display: none; position: fixed; top: 70px; left: 0; right: 0; background: white; border-bottom: 3px solid var(--orange); padding: 20px; z-index: 999; }
+  .mobile-menu a { display: flex; align-items: center; gap: 10px; padding: 12px 0; color: var(--text-dark); text-decoration: none; font-size: 16px; border-bottom: 1px solid #eee; }
+  .mobile-menu a img { width: 20px; height: 20px; }
+  .mobile-menu a:hover { color: var(--orange); }
+  .mobile-menu.open { display: block; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    padding-top: 70px;
+    position: relative;
+    display: flex; align-items: center;
+    overflow: hidden;
+  }
+  /* Full-bleed background image — JPG file: logo_icon_src/hero_bg.jpg */
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('logo_icon_src/hero_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+  /* Left-to-right gradient overlay: opaque white on left → transparent on right */
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(255,255,255,0.97) 0%,
+      rgba(255,255,255,0.90) 25%,
+      rgba(255,255,255,0.60) 50%,
+      rgba(255,255,255,0.15) 75%,
+      rgba(255,255,255,0.00) 100%
+    );
+  }
+  .hero-content { position: relative; z-index: 1; width: 90%; max-width: 1200px; margin: 0 auto; padding: 80px 0; }
+  .hero-text { max-width: 560px; }
+  .hero-title { font-family: 'Anek Bangla', sans-serif; font-weight: 800; font-size: clamp(32px, 5vw, 58px); line-height: 1.2; color: var(--text-dark); margin-bottom: 20px; }
+  .hero-title span { color: var(--orange); }
+  .hero-desc { font-size: 17px; color: var(--text-mid); line-height: 1.8; margin-bottom: 35px; }
+  .hero-btns { display: flex; gap: 15px; flex-wrap: wrap; }
+  .btn-primary { background: linear-gradient(135deg, var(--orange), var(--warm-red)); color: white; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-size: 16px; font-weight: 600; box-shadow: 0 6px 20px rgba(242,91,49,0.4); transition: transform 0.2s, box-shadow 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(242,91,49,0.5); }
+  .btn-primary img { width: 20px; height: 20px; }
+  .btn-secondary { background: transparent; border: 2px solid var(--orange); color: var(--orange); padding: 12px 32px; border-radius: 50px; text-decoration: none; font-size: 16px; font-weight: 600; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-secondary:hover { background: var(--orange); color: white; }
+  .btn-secondary img { width: 20px; height: 20px; }
+
+  /* SECTIONS */
+  section { padding: 90px 5%; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-label { font-size: 13px; color: var(--orange); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+  .section-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: clamp(26px, 4vw, 40px); color: var(--text-dark); margin-bottom: 20px; }
+  .section-title span { color: var(--orange); }
+  .section-desc { font-size: 16px; color: var(--text-mid); line-height: 1.9; max-width: 700px; }
+  .divider { width: 60px; height: 4px; background: linear-gradient(90deg, var(--orange), var(--warm-red)); border-radius: 2px; margin: 20px 0 40px; }
+
+  /* WHY SECTION */
+  .why-section { background: var(--white); }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; margin-top: 20px; }
+  .card { background: var(--white); border: 2px solid #f0f0f0; border-radius: 20px; padding: 35px 28px; transition: all 0.3s; position: relative; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--orange), var(--warm-red)); }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); border-color: var(--orange); }
+  .card-icon { width: 40px; height: 40px; margin-bottom: 18px; display: block; }
+  .card-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 20px; margin-bottom: 12px; color: var(--text-dark); }
+  .card-text { font-size: 15px; color: var(--text-mid); line-height: 1.8; }
+
+  /* OBJECTIVES SECTION */
+  .obj-section { background: var(--green-light); }
+  .obj-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 10px; }
+  .obj-item { display: flex; gap: 20px; align-items: flex-start; background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: transform 0.3s; }
+  .obj-item:hover { transform: translateY(-4px); }
+  .obj-num { min-width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--orange), var(--warm-red)); color: white; display: flex; align-items: center; justify-content: center; font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 20px; box-shadow: 0 4px 12px rgba(242,91,49,0.3); }
+  .obj-content h3 { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 18px; margin-bottom: 8px; }
+  .obj-content p { font-size: 14px; color: var(--text-mid); line-height: 1.8; }
+
+  /* STATS */
+  .stats-section { background: linear-gradient(135deg, var(--orange), var(--warm-red)); padding: 70px 5%; }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; max-width: 900px; margin: 0 auto; text-align: center; }
+  .stat-item { color: white; }
+  .stat-num { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: 52px; display: block; }
+  .stat-label { font-size: 15px; opacity: 0.9; margin-top: 5px; }
+
+  /* CTA */
+  .cta-section { background: var(--white); text-align: center; padding: 80px 5%; }
+  .cta-inner { max-width: 700px; margin: 0 auto; }
+  .cta-title { font-family: 'Anek Bangla', sans-serif; font-weight: 700; font-size: clamp(28px, 4vw, 44px); margin-bottom: 15px; }
+  .cta-desc { font-size: 16px; color: var(--text-mid); margin-bottom: 35px; line-height: 1.8; }
+  .cta-btns { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+  /* FOOTER */
+  footer { background: #111; color: #ccc; padding: 50px 5% 30px; text-align: center; }
+  .footer-logo-wrap { display: flex; justify-content: center; margin-bottom: 12px; }
+  .footer-logo-wrap img { height: 40px; width: auto; }
+  .footer-links { display: flex; justify-content: center; gap: 25px; margin: 20px 0; flex-wrap: wrap; }
+  .footer-links a { color: #aaa; text-decoration: none; font-size: 14px; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-copy { font-size: 13px; color: #666; margin-top: 20px; }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-content { padding: 60px 0; }
+    .hero-text { max-width: 100%; }
+    .hero-bg::after {
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.95) 0%,
+        rgba(255,255,255,0.85) 60%,
+        rgba(255,255,255,0.40) 100%
+      );
+    }
+    .hero-btns { justify-content: flex-start; }
+    .section-desc { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <img src="logo_icon_src/logo_header.svg" alt="ফালাক লোগো" height="48">
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">হোম</a></li>
+    <li><a href="about.html">আমাদের সম্পর্কে</a></li>
+    <li><a href="join.html">যোগ দিন</a></li>
+    <li><a href="donate.html">দান করুন</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html"><img src="logo_icon_src/icon_nav_home.svg" alt=""> হোম</a>
+  <a href="about.html"><img src="logo_icon_src/icon_nav_about.svg" alt=""> আমাদের সম্পর্কে</a>
+  <a href="join.html"><img src="logo_icon_src/icon_nav_join.svg" alt=""> যোগ দিন</a>
+  <a href="donate.html"><img src="logo_icon_src/icon_nav_donate.svg" alt=""> দান করুন</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Background image: place your photo at logo_icon_src/hero_bg.jpg -->
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="hero-title">
+        আলোকিত যুবক,<br>
+        <span>আলোকিত সমাজ</span>
+      </h1>
+      <p class="hero-desc">
+        ফালাক ইউথ অর্গানাইজেশন বিশ্বাস করে — প্রতিটি যুবক একটি সম্ভাবনার নাম।
+        ইসলামি আদর্শ ও নৈতিক শিক্ষার আলোয় আমরা গড়তে চাই আগামীর নেতৃত্ব।
+      </p>
+      <div class="hero-btns">
+        <a href="join.html" class="btn-primary">
+          <img src="logo_icon_src/icon_btn_join.svg" alt="">
+          যোগ দিন আজই →
+        </a>
+        <a href="about.html" class="btn-secondary">আরও জানুন</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY SECTION -->
+<section class="why-section">
+  <div class="section-inner">
+    <p class="section-label reveal">কেন আমরা?</p>
+    <h2 class="section-title reveal">কেন এই <span>ফাউন্ডেশন?</span></h2>
+    <div class="divider reveal"></div>
+    <p class="section-desc reveal">বর্তমান সমাজে যুব সমাজ নানা সংকটে পতিত। মাদক, হতাশা, নৈতিক অবক্ষয় ও ডিজিটাল আসক্তির কবলে পড়ে হারিয়ে যাচ্ছে মেধাবী তরুণ প্রজন্ম। এই সংকট মোকাবেলায় ফালাক ইউথ অর্গানাইজেশন নিরলসভাবে কাজ করে যাচ্ছে।</p>
+    <div class="cards-grid" style="margin-top: 50px;">
+      <div class="card reveal">
+        <img src="logo_icon_src/icon_card_warning.svg" alt="" class="card-icon">
+        <h3 class="card-title">সামাজিক সংকট</h3>
+        <p class="card-text">মাদকাসক্তি, বেকারত্ব ও নৈতিক অবক্ষয়ের কারণে যুব সমাজ আজ দিকহারা। সঠিক পথ দেখানোর জন্য প্রয়োজন সুসংগঠিত উদ্যোগ।</p>
+      </div>
+      <div class="card reveal">
+        <img src="logo_icon_src/icon_card_mosque.svg" alt="" class="card-icon">
+        <h3 class="card-title">ইসলামি পথনির্দেশনা</h3>
+        <p class="card-text">ইসলামি আদর্শ ও নবীজির সিরাত থেকে শিক্ষা নিয়ে যুবকদের জীবন গঠনে আমরা পথ দেখাই। বিশুদ্ধ আকিদা ও আমলের দিকে আহ্বান।</p>
+      </div>
+      <div class="card reveal">
+        <img src="logo_icon_src/icon_card_leadership.svg" alt="" class="card-icon">
+        <h3 class="card-title">নেতৃত্ব উন্নয়ন</h3>
+        <p class="card-text">প্রতিটি যুবকের ভেতরে লুকিয়ে থাকা নেতৃত্বের গুণাবলি বিকাশে আমরা কাজ করি, যাতে তারা সমাজের পরিবর্তনের কারিগর হতে পারে।</p>
+      </div>
+      <div class="card reveal">
+        <img src="logo_icon_src/icon_card_service.svg" alt="" class="card-icon">
+        <h3 class="card-title">সামাজিক দায়বদ্ধতা</h3>
+        <p class="card-text">মানুষের সেবায় নিজেকে নিয়োজিত করা ইবাদতের অংশ। আমরা যুবকদের সমাজসেবায় উৎসাহিত করি এবং সংযুক্ত করি।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIVES SECTION -->
+<section class="obj-section">
+  <div class="section-inner">
+    <p class="section-label reveal">লক্ষ্য ও উদ্দেশ্য</p>
+    <h2 class="section-title reveal">আমাদের <span>উদ্দেশ্য</span></h2>
+    <div class="divider reveal"></div>
+    <div class="obj-grid">
+      <div class="obj-item reveal">
+        <div class="obj-num">১</div>
+        <div class="obj-content">
+          <h3>ইসলামি নৈতিকতার বিকাশ</h3>
+          <p>কুরআন ও সুন্নাহর আলোকে যুবকদের চরিত্র গঠন করা এবং ইসলামের শিক্ষাকে বাস্তব জীবনে প্রতিফলিত করা।</p>
+        </div>
+      </div>
+      <div class="obj-item reveal">
+        <div class="obj-num">২</div>
+        <div class="obj-content">
+          <h3>শিক্ষা ও দক্ষতা উন্নয়ন</h3>
+          <p>যুবকদের দীনি ও আধুনিক শিক্ষায় শিক্ষিত করে দক্ষ মানবসম্পদ হিসেবে গড়ে তোলা।</p>
+        </div>
+      </div>
+      <div class="obj-item reveal">
+        <div class="obj-num">৩</div>
+        <div class="obj-content">
+          <h3>সামাজিক কল্যাণ কার্যক্রম</h3>
+          <p>অসহায়, দরিদ্র ও সুবিধাবঞ্চিত মানুষের পাশে দাঁড়িয়ে সেবামূলক কার্যক্রম পরিচালনা করা।</p>
+        </div>
+      </div>
+      <div class="obj-item reveal">
+        <div class="obj-num">৪</div>
+        <div class="obj-content">
+          <h3>মাদক ও অবক্ষয়মুক্ত সমাজ</h3>
+          <p>মাদকাসক্তি, সাইবার অপরাধ ও নৈতিক অবক্ষয়ের বিরুদ্ধে সচেতনতা তৈরি এবং প্রতিরোধমূলক কার্যক্রম।</p>
+        </div>
+      </div>
+      <div class="obj-item reveal">
+        <div class="obj-num">৫</div>
+        <div class="obj-content">
+          <h3>ইসলামি ঐক্য ও ভ্রাতৃত্ব</h3>
+          <p>মুসলিম যুবকদের মধ্যে ঐক্য, ভ্রাতৃত্ব ও পারস্পরিক সহযোগিতার মনোভাব তৈরি করা।</p>
+        </div>
+      </div>
+      <div class="obj-item reveal">
+        <div class="obj-num">৬</div>
+        <div class="obj-content">
+          <h3>সৃজনশীল প্রতিভার বিকাশ</h3>
+          <p>যুবকদের সৃজনশীলতা, উদ্যোক্তা মানসিকতা ও ইতিবাচক নেতৃত্ব গড়ে তোলার জন্য প্রশিক্ষণ ও মেন্টরশিপ।</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section reveal">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <span class="stat-num">৫০+</span>
+      <span class="stat-label">সক্রিয় সদস্য</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">৩০+</span>
+      <span class="stat-label">কার্যক্রম পরিচালিত</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">১+</span>
+      <span class="stat-label">জেলায় কার্যক্রম</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">১০০০+</span>
+      <span class="stat-label">উপকৃত মানুষ</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="cta-title reveal">আজই পরিবর্তনের অংশ হন</h2>
+    <p class="cta-desc reveal">ফালাক ইউথ অর্গানাইজেশন এর সাথে যুক্ত হয়ে আপনার এলাকায় আলোর পথ তৈরি করুন। একসাথে আমরা পারি একটি সুন্দর, ন্যায়বিচারপূর্ণ সমাজ গড়তে।</p>
+    <div class="cta-btns reveal">
+      <a href="join.html" class="btn-primary">
+        <img src="logo_icon_src/icon_btn_join.svg" alt="">
+        যোগ দিন
+      </a>
+      <a href="donate.html" class="btn-secondary">
+        <img src="logo_icon_src/icon_btn_donate.svg" alt="">
+        দান করুন
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo-wrap">
+    <img src="logo_icon_src/logo_footer.svg" alt="ফালাক ইউথ অর্গানাইজেশন" height="40">
+  </div>
+  <p style="font-size: 14px; margin-bottom: 15px; color: #888;">ইসলামি মূল্যবোধ ও যুব সামাজিক সংকট মোকাবেলায় প্রতিশ্রুতিবদ্ধ</p>
+  <div class="footer-links">
+    <a href="index.html">হোম</a>
+    <a href="about.html">আমাদের সম্পর্কে</a>
+    <a href="join.html">যোগ দিন</a>
+    <a href="donate.html">দান করুন</a>
+  </div>
+  <div class="footer-copy">&copy; 2024 Falaq Youth Organization. All rights reserved.</div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('nav') && !e.target.closest('#mobileMenu')) {
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>
