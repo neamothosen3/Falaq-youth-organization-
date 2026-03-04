@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — ফালাক যুব সংগঠন</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&family=Anek+Bangla:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--orange:#f25b31;--red:#d93025;--gl:#e8f5e9;--gm:#a5d6a7;--gd:#2e7d32;--bg:#f4f6f9;--w:#fff;--t:#1a1a1a;--tm:#555;--br:#e0e0e0;--sw:240px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Hind Siliguri',sans-serif;background:var(--bg);color:var(--t);min-height:100vh;display:flex;}
+.sidebar{width:var(--sw);background:#1a1a1a;min-height:100vh;position:fixed;top:0;left:0;z-index:100;display:flex;flex-direction:column;transition:transform .3s;}
+.sbl{padding:22px 18px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:12px;}
+.sbi{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--red));display:flex;align-items:center;justify-content:center;font-family:'Anek Bangla';font-weight:700;color:#fff;font-size:17px;}
+.sbt{font-family:'Anek Bangla';font-weight:700;font-size:15px;color:#fff;line-height:1.2;}
+.sbs{font-size:11px;color:rgba(255,255,255,.3);}
+.sbn{padding:14px 0;flex:1;}
+.sbs2{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:2px;padding:10px 18px 5px;text-transform:uppercase;}
+.si{display:flex;align-items:center;gap:11px;padding:11px 18px;cursor:pointer;color:rgba(255,255,255,.55);font-size:14px;transition:all .2s;border-left:3px solid transparent;text-decoration:none;}
+.si:hover{color:#fff;background:rgba(255,255,255,.05);}
+.si.active{color:#fff;background:rgba(242,91,49,.15);border-left-color:var(--orange);}
+.sbf{padding:14px 18px;border-top:1px solid rgba(255,255,255,.08);}
+.sbb{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.35);font-size:13px;text-decoration:none;transition:color .2s;}
+.sbb:hover{color:var(--orange);}
+.main{margin-left:var(--sw);flex:1;padding:28px;}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px;}
+.ph{font-family:'Anek Bangla';font-weight:700;font-size:24px;}
+.ph span{color:var(--orange);}
+.tb{background:var(--gl);color:var(--gd);padding:5px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid var(--gm);}
+.tabs{display:flex;gap:5px;margin-bottom:24px;background:#fff;border-radius:12px;padding:5px;box-shadow:0 2px 10px rgba(0,0,0,.06);width:fit-content;}
+.tab{padding:9px 22px;border-radius:9px;cursor:pointer;font-size:14px;font-weight:500;color:var(--tm);transition:all .2s;border:none;background:none;font-family:'Hind Siliguri';}
+.tab.active{background:var(--orange);color:#fff;box-shadow:0 4px 12px rgba(242,91,49,.35);}
+.panel{display:none;}.panel.active{display:block;}
+.sr{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px;}
+.sc{background:#fff;border-radius:14px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.sc .n{font-family:'Anek Bangla';font-weight:700;font-size:34px;color:var(--orange);}
+.sc .l{font-size:13px;color:var(--tm);margin-top:3px;}
+.fc{background:#fff;border-radius:18px;padding:28px;box-shadow:0 2px 14px rgba(0,0,0,.07);margin-bottom:24px;}
+.fct{font-family:'Anek Bangla';font-weight:700;font-size:19px;margin-bottom:5px;}
+.fcs{font-size:13px;color:var(--tm);margin-bottom:20px;}
+.fcl{height:1px;background:var(--br);margin-bottom:20px;}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.fg.one{grid-template-columns:1fr;}
+.fg2{display:flex;flex-direction:column;gap:6px;}
+.fg2.s2{grid-column:span 2;}
+label{font-size:13px;font-weight:600;}
+label .r{color:var(--orange);}
+input[type=text],select,textarea{border:2px solid var(--br);border-radius:9px;padding:10px 13px;font-size:14px;font-family:'Hind Siliguri';color:var(--t);background:#fafafa;transition:border-color .2s;width:100%;}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--orange);background:#fff;}
+textarea{resize:vertical;min-height:130px;}
+.dz{border:2px dashed var(--br);border-radius:13px;padding:36px 20px;text-align:center;cursor:pointer;transition:all .2s;background:#fafafa;position:relative;}
+.dz:hover,.dz.on{border-color:var(--orange);background:rgba(242,91,49,.04);}
+.dz input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.dzi{font-size:38px;margin-bottom:8px;}
+.dzt{font-family:'Anek Bangla';font-weight:700;font-size:15px;margin-bottom:4px;}
+.dzs{font-size:13px;color:var(--tm);}
+.dzh{font-size:12px;color:#aaa;margin-top:6px;}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-top:14px;}
+.pi{position:relative;border-radius:9px;overflow:hidden;aspect-ratio:1;background:#f0f0f0;}
+.pi img{width:100%;height:100%;object-fit:cover;display:block;}
+.pr{position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;border:none;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;}
+.pr:hover{background:var(--red);}
+.pc{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.55);color:#fff;font-size:10px;padding:3px 5px;}
+.bok{background:linear-gradient(135deg,var(--orange),var(--red));color:#fff;padding:12px 28px;border-radius:50px;border:none;font-size:14px;font-weight:600;font-family:'Hind Siliguri';cursor:pointer;box-shadow:0 5px 16px rgba(242,91,49,.35);transition:all .2s;}
+.bok:hover{transform:translateY(-2px);box-shadow:0 9px 22px rgba(242,91,49,.45);}
+.bcl{background:#fff;color:var(--tm);padding:10px 24px;border-radius:50px;border:2px solid var(--br);font-size:14px;cursor:pointer;font-family:'Hind Siliguri';transition:all .2s;}
+.bcl:hover{border-color:#aaa;}
+.fa{display:flex;gap:10px;align-items:center;margin-top:20px;}
+.lc{background:#fff;border-radius:18px;box-shadow:0 2px 14px rgba(0,0,0,.07);overflow:hidden;}
+.lh{padding:18px 22px;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:center;}
+.lht{font-family:'Anek Bangla';font-weight:700;font-size:17px;}
+.lhc{background:var(--bg);color:var(--tm);padding:3px 11px;border-radius:18px;font-size:13px;}
+.li{padding:14px 22px;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:14px;transition:background .15s;}
+.li:last-child{border-bottom:none;}
+.li:hover{background:#fafafa;}
+.lt{width:52px;height:52px;border-radius:9px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;overflow:hidden;}
+.lt img{width:100%;height:100%;object-fit:cover;}
+.lin{flex:1;min-width:0;}
+.ln{font-weight:600;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;}
+.lm{font-size:12px;color:var(--tm);display:flex;gap:8px;flex-wrap:wrap;}
+.bd{display:inline-block;padding:2px 9px;border-radius:11px;font-size:11px;font-weight:600;}
+.bg2{background:var(--gl);color:var(--gd);}
+.bo{background:rgba(242,91,49,.12);color:var(--orange);}
+.bb{background:#e3f2fd;color:#1565c0;}
+.bp{background:#f3e5f5;color:#6a1b9a;}
+.la{display:flex;gap:7px;}
+.ab{width:32px;height:32px;border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all .2s;}
+.adl{background:#ffebee;color:#c62828;}
+.adl:hover{background:#c62828;color:#fff;}
+.toast{position:fixed;top:22px;right:22px;z-index:9999;background:#1a1a1a;color:#fff;padding:13px 20px;border-radius:13px;font-size:14px;display:flex;align-items:center;gap:9px;box-shadow:0 8px 28px rgba(0,0,0,.25);transform:translateY(-70px);opacity:0;transition:all .4s cubic-bezier(.34,1.56,.64,1);pointer-events:none;}
+.toast.show{transform:translateY(0);opacity:1;}
+.cb{background:#1a1a1a;border-radius:13px;padding:18px 20px;font-family:monospace;font-size:13px;color:#a5d6a7;overflow-x:auto;white-space:pre-wrap;line-height:1.7;margin-top:10px;position:relative;}
+.cbt{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:4px 11px;border-radius:7px;font-size:12px;cursor:pointer;transition:all .2s;}
+.cbt:hover{background:var(--orange);color:#fff;border-color:var(--orange);}
+.guide{background:var(--gl);border-radius:14px;padding:18px 22px;border-left:4px solid var(--gd);margin-bottom:20px;}
+.gt{font-family:'Anek Bangla';font-weight:700;font-size:15px;color:var(--gd);margin-bottom:10px;}
+.gs{display:flex;flex-direction:column;gap:7px;}
+.gr{display:flex;align-items:flex-start;gap:10px;font-size:14px;}
+.gn{min-width:24px;height:24px;border-radius:50%;background:var(--gd);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+.em{text-align:center;padding:45px 20px;color:#aaa;}
+.ei{font-size:45px;margin-bottom:10px;opacity:.3;}
+.mb{display:none;position:fixed;top:14px;left:14px;z-index:200;width:38px;height:38px;border-radius:9px;background:var(--orange);border:none;color:#fff;font-size:20px;cursor:pointer;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(242,91,49,.4);}
+@media(max-width:900px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0;padding:16px;padding-top:65px}.mb{display:flex}.fg{grid-template-columns:1fr}.fg2.s2{grid-column:span 1}}
+
+.bimg-dz{border:2px dashed var(--br);border-radius:9px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:#fafafa;position:relative;margin-top:6px;}
+.bimg-dz:hover,.bimg-dz.on{border-color:var(--orange);background:rgba(242,91,49,.04);}
+.bimg-dz input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.bimg-prev{margin-top:10px;position:relative;display:none;}
+.bimg-prev img{width:100%;max-height:200px;object-fit:cover;border-radius:8px;display:block;}
+.bimg-rm{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.7);color:#fff;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.bimg-rm:hover{background:var(--red);}
+
+.bimg-dz{border:2px dashed var(--br);border-radius:9px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:#fafafa;position:relative;margin-top:6px;}
+.bimg-dz:hover,.bimg-dz.on{border-color:var(--orange);background:rgba(242,91,49,.04);}
+.bimg-dz input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.bimg-prev{margin-top:10px;position:relative;display:none;}
+.bimg-prev img{width:100%;max-height:200px;object-fit:cover;border-radius:8px;display:block;}
+.bimg-rm{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.7);color:#fff;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.bimg-rm:hover{background:var(--red);}
+</style>
+</head>
+<body>
+<button class="mb" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+<aside class="sidebar">
+  <div class="sbl">
+    <img src="logo_icon_src/logo_header.svg" alt="ফালাক" style="height:44px;width:auto;">
+    <div><div class="sbt">ফালাক যুব সংগঠন</div><div class="sbs">Admin Panel</div></div>
+  </div>
+  <nav class="sbn">
+    <div class="sbs2">ম্যানেজমেন্ট</div>
+    <a class="si active" onclick="sw('blog',this);return false;" href="#"><span>📝</span> ব্লগ পোস্ট</a>
+    <a class="si" onclick="sw('gallery',this);return false;" href="#"><span>🖼️</span> গ্যালারি ছবি</a>
+    <div class="sbs2" style="margin-top:14px">পেজ দেখুন</div>
+    <a class="si" href="blog.html" target="_blank"><span>🌐</span> ব্লগ পেজ</a>
+    <a class="si" href="index.html" target="_blank"><span>🏠</span> হোমপেজ</a>
+  </nav>
+  <div class="sbf"><a class="sbb" href="index.html">← মূল সাইটে ফিরুন</a></div>
+</aside>
+<main class="main">
+
+<!-- BLOG PANEL -->
+<div class="panel active" id="panel-blog">
+  <div class="topbar"><h1 class="ph">ব্লগ <span>পোস্ট</span></h1><span class="tb" id="bBadge">০ টি পোস্ট</span></div>
+  <div class="sr" id="bStats"></div>
+  <div class="fc">
+    <div class="fct">✏️ নতুন ব্লগ পোস্ট যোগ করুন</div>
+    <div class="fcs">নিচের ফর্ম পূরণ করুন। সব তথ্য বাংলায় লিখুন।</div>
+    <div class="fcl"></div>
+    <div class="fg">
+      <div class="fg2 s2"><label>পোস্টের শিরোনাম <span class="r">*</span></label><input type="text" id="bT" placeholder="যেমন: তরুণ প্রজন্মের জন্য ইসলামের পথনির্দেশনা"></div>
+      <div class="fg2"><label>বিভাগ <span class="r">*</span></label>
+        <select id="bC"><option value="islam">ইসলামি জ্ঞান</option><option value="youth">যুব উন্নয়ন</option><option value="activity">কার্যক্রম</option><option value="social">সামাজিক সেবা</option></select>
+      </div>
+      <div class="fg2"><label>লেখকের নাম <span class="r">*</span></label><input type="text" id="bA" placeholder="যেমন: আবু বকর"></div>
+      <div class="fg2 s2"><label>সংক্ষিপ্ত বিবরণ <span class="r">*</span></label><input type="text" id="bE" placeholder="পোস্টের সারসংক্ষেপ — ২-৩ লাইন"></div>
+      <div class="fg2 s2"><label>পূর্ণ লেখা <span class="r">*</span></label><textarea id="bCt" placeholder="এখানে পোস্টের পূর্ণ লেখা লিখুন...&#10;&#10;প্রতিটি অনুচ্ছেদের মাঝে একটি খালি লাইন রাখুন।"></textarea></div>
+      <div class="fg2"><label>ফিচার্ড পোস্ট?</label>
+        <select id="bF"><option value="false">না (সাধারণ পোস্ট)</option><option value="true">হ্যাঁ (সবার আগে দেখাবে)</option></select>
+      </div>
+      <div class="fg2"><label>তারিখ</label><input type="text" id="bD" placeholder="যেমন: ১৫ মার্চ ২০২৪""></div>
+      <div class="fg2 s2"><label>পোস্টের ছবি <span style="color:#aaa;font-weight:400">(ঐচ্ছিক)</span></label><div class="bimg-dz" id="bImgDz" ondragover="bIDrag(event,true)" ondragleave="bIDrag(event,false)" ondrop="bIDrop(event)"><input type="file" id="bImgIn" accept="image/*" onchange="bISel(event)"><div style="font-size:28px">🖼️</div><div style="font-family:Anek Bangla;font-weight:700;font-size:14px">ছবি বেছে নিন বা টেনে আনুন</div><div style="font-size:12px;color:var(--tm)">JPG, PNG — সর্বোচ্চ ৫ MB</div></div><div class="bimg-prev" id="bImgPrev"><img id="bImgThumb" src="" alt=""><button class="bimg-rm" onclick="bIClr()">✕</button></div></div>
+    </div>
+    <div class="fa"><button class="bok" onclick="addBlog()">✅ পোস্ট যোগ করুন</button><button class="bcl" onclick="clrBlog()">পরিষ্কার করুন</button></div>
+  </div>
+  <div class="lc">
+    <div class="lh"><div class="lht">সব পোস্ট</div><span class="lhc" id="bCnt">০ টি</span></div>
+    <div id="bList"><div class="em"><div class="ei">📝</div><p>এখনো কোনো পোস্ট নেই।</p></div></div>
+  </div>
+  <div class="fc" style="margin-top:22px">
+    <div class="fct">🔧 blog.html-এ কোড যোগ করুন</div>
+    <div class="fcs"><strong>blog.html</strong> ফাইলে <code style="background:#f0f0f0;padding:1px 7px;border-radius:5px;color:var(--orange)">const blogPosts = [</code> এর ঠিক পরে নিচের কোডটি পেস্ট করুন।</div>
+    <div class="guide">
+      <div class="gt">📌 কীভাবে করবেন?</div>
+      <div class="gs">
+        <div class="gr"><div class="gn">১</div><span>নিচে <strong>"কোড কপি করুন"</strong> বাটনে ক্লিক করুন</span></div>
+        <div class="gr"><div class="gn">২</div><span><strong>blog.html</strong> ফাইলটি Notepad বা VS Code-এ খুলুন</span></div>
+        <div class="gr"><div class="gn">৩</div><span><strong>Ctrl+F</strong> চেপে খুঁজুন: <code style="background:#f0f0f0;padding:1px 5px;border-radius:4px">const blogPosts = [</code></span></div>
+        <div class="gr"><div class="gn">৪</div><span>সেই লাইনের পরের লাইনে কোড <strong>পেস্ট করুন</strong>, তারপর ফাইল সেভ করুন</span></div>
+      </div>
+    </div>
+    <div class="cb" id="bCode"><button class="cbt" onclick="cpC('bCode')">📋 কোড কপি করুন</button>// পোস্ট যোগ করুন — কোড এখানে দেখাবে...</div>
+  </div>
+</div>
+
+<!-- GALLERY PANEL -->
+<div class="panel" id="panel-gallery">
+  <div class="topbar"><h1 class="ph">গ্যালারি <span>ছবি</span></h1><span class="tb" id="gBadge">০ টি ছবি</span></div>
+  <div class="fc">
+    <div class="fct">🖼️ নতুন ছবি যোগ করুন</div>
+    <div class="fcs">ছবি আপলোড করুন এবং তথ্য পূরণ করুন।</div>
+    <div class="fcl"></div>
+    <div class="dz" id="dz" ondragover="onDrag(event)" ondragleave="offDrag(event)" ondrop="onDrop(event)">
+      <input type="file" id="gI" accept="image/*" multiple onchange="onSel(event)">
+      <div class="dzi">📸</div>
+      <div class="dzt">ছবি বেছে নিন বা এখানে টেনে আনুন</div>
+      <div class="dzs">JPG, PNG, WebP — সর্বোচ্চ ৫ MB প্রতিটি</div>
+      <div class="dzh">একসাথে একাধিক ছবি দেওয়া যাবে</div>
+    </div>
+    <div class="pg" id="pGrid"></div>
+    <div class="fg" style="margin-top:18px">
+      <div class="fg2"><label>ছবির বিবরণ <span class="r">*</span></label><input type="text" id="gCap" placeholder="যেমন: নেতৃত্ব কর্মশালা ২০২৪"></div>
+      <div class="fg2"><label>বিভাগ</label>
+        <select id="gCat"><option value="event">ইভেন্ট</option><option value="training">প্রশিক্ষণ</option><option value="social">সামাজিক সেবা</option></select>
+      </div>
+      <div class="fg2"><label>সাম্প্রতিক ছবি?</label>
+        <select id="gRec"><option value="true">হ্যাঁ</option><option value="false">না</option></select>
+      </div>
+    </div>
+    <div class="fa"><button class="bok" onclick="addGal()">✅ ছবি যোগ করুন</button><button class="bcl" onclick="clrGal()">পরিষ্কার করুন</button></div>
+  </div>
+  <div class="lc">
+    <div class="lh"><div class="lht">সব ছবি</div><span class="lhc" id="gCnt">০ টি</span></div>
+    <div id="gList"><div class="em"><div class="ei">🖼️</div><p>এখনো কোনো ছবি নেই।</p></div></div>
+  </div>
+  <div class="fc" style="margin-top:22px">
+    <div class="fct">🔧 blog.html-এ কোড যোগ করুন</div>
+    <div class="fcs"><strong>blog.html</strong> ফাইলে <code style="background:#f0f0f0;padding:1px 7px;border-radius:5px;color:var(--orange)">const galleryImages = [</code> এর ঠিক পরে নিচের কোডটি পেস্ট করুন।</div>
+    <div class="guide">
+      <div class="gt">📌 ছবি ফাইল কোথায় রাখবেন?</div>
+      <div class="gs">
+        <div class="gr"><div class="gn">১</div><span>ছবি ফাইলগুলো <code style="background:#f0f0f0;padding:1px 5px;border-radius:4px">logo_icon_src/gallery/</code> ফোল্ডারে রাখুন</span></div>
+        <div class="gr"><div class="gn">২</div><span>ফাইলের নাম সহজ রাখুন: <code style="background:#f0f0f0;padding:1px 5px;border-radius:4px">event1.jpg</code> বা <code style="background:#f0f0f0;padding:1px 5px;border-radius:4px">training2.jpg</code></span></div>
+        <div class="gr"><div class="gn">৩</div><span>নিচের কোড কপি করে <strong>blog.html</strong> এ পেস্ট করুন</span></div>
+      </div>
+    </div>
+    <div class="cb" id="gCode"><button class="cbt" onclick="cpC('gCode')">📋 কোড কপি করুন</button>// ছবি যোগ করুন — কোড এখানে দেখাবে...</div>
+  </div>
+</div>
+
+</main>
+<div class="toast" id="toast"><span id="tIco">✅</span><span id="tMsg">সফল!</span></div>
+
+<script>
+var bImg=null;var blogs=JSON.parse(localStorage.getItem('fq_b')||'[]');
+var gals=JSON.parse(localStorage.getItem('fq_g')||'[]');
+var imgs=[];
+var BCAT={islam:'ইসলামি জ্ঞান',youth:'যুব উন্নয়ন',activity:'কার্যক্রম',social:'সামাজিক সেবা'};
+var BCOL={islam:'bg2',youth:'bb',activity:'bo',social:'bp'};
+var GCAT={event:'ইভেন্ট',training:'প্রশিক্ষণ',social:'সামাজিক সেবা'};
+function save(){localStorage.setItem('fq_b',JSON.stringify(blogs));localStorage.setItem('fq_g',JSON.stringify(gals));}
+function sw(n,el){document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});document.querySelectorAll('.si').forEach(function(s){s.classList.remove('active');});document.getElementById('panel-'+n).classList.add('active');el.classList.add('active');document.querySelector('.sidebar').classList.remove('open');}
+function toast(msg,ico){ico=ico||'OK';var t=document.getElementById('toast');document.getElementById('tMsg').textContent=msg;document.getElementById('tIco').textContent=ico;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},3000);}
+function g(id){return document.getElementById(id).value;}
+function toHtml(t){return t.split(/\n\n+/).map(function(p){return '<p>'+p.replace(/\n/g,'<br>')+'</p>';}).join('\n');}
+function todayBn(){var d=new Date();var mn=['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];return d.getDate()+' '+mn[d.getMonth()]+' '+d.getFullYear();}
+function addBlog(){var title=g('bT').trim(),author=g('bA').trim(),excerpt=g('bE').trim(),content=g('bCt').trim(),cat=g('bC'),feat=g('bF')==='true',date=g('bD').trim()||todayBn();if(!title||!author||!excerpt||!content){toast('তারকা (*) ঘর পূরণ করুন!');return;}if(feat)blogs.forEach(function(p){p.featured=false;});blogs.unshift({id:Date.now(),title:title,author:author,excerpt:excerpt,content:toHtml(content),category:cat,categoryLabel:BCAT[cat],date:date,featured:feat,image:bImg||null});save();clrBlog();rBlog();rBlogCode();toast('পোস্ট যোগ হয়েছে! 🎉');}
+function delBlog(id){if(!confirm('মুছে ফেলবেন?'))return;blogs=blogs.filter(function(p){return p.id!==id;});save();rBlog();rBlogCode();toast('মুছে ফেলা হয়েছে।');}
+function clrBlog(){['bT','bA','bE','bCt','bD'].forEach(function(id){document.getElementById(id).value='';});document.getElementById('bF').value='false';bIClr();}
+function bIDrag(e,on){e.preventDefault();document.getElementById('bImgDz').classList[on?'add':'remove']('on');}function bIDrop(e){e.preventDefault();bIDrag(e,false);var f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/'))bILoad(f);}function bISel(e){var f=e.target.files[0];if(f)bILoad(f);}function bILoad(f){if(f.size>5242880){toast('ছবি ৫MB এর বেশি!');return;}var r=new FileReader();r.onload=function(ev){bImg=ev.target.result;var p=document.getElementById('bImgPrev');document.getElementById('bImgThumb').src=bImg;p.style.display='block';document.getElementById('bImgDz').style.display='none';};r.readAsDataURL(f);}function bIClr(){bImg=null;document.getElementById('bImgPrev').style.display='none';document.getElementById('bImgDz').style.display='block';document.getElementById('bImgIn').value='';}function rBlog(){var el=document.getElementById('bList');document.getElementById('bCnt').textContent=blogs.length+' টি';document.getElementById('bBadge').textContent=blogs.length+' টি পোস্ট';var st=document.getElementById('bStats');st.innerHTML=Object.keys(BCAT).map(function(c){return '<div class="sc"><div class="n">'+blogs.filter(function(p){return p.category===c;}).length+'</div><div class="l">'+BCAT[c]+'</div></div>';}).join('')+'<div class="sc"><div class="n">'+blogs.length+'</div><div class="l">মোট পোস্ট</div></div>';if(!blogs.length){el.innerHTML='<div class="em"><div class="ei">📝</div><p>কোনো পোস্ট নেই।</p></div>';return;}el.innerHTML=blogs.map(function(p){return '<div class="li"><div class="lt">'+(p.image?'<img src="'+p.image+'">':'📝')+'</div><div class="lin"><div class="ln">'+p.title+'</div><div class="lm"><span class="bd '+BCOL[p.category]+'">'+p.categoryLabel+'</span><span>✍️ '+p.author+'</span><span>📅 '+p.date+'</span>'+(p.featured?'<span class="bd bo">⭐ ফিচার্ড</span>':'')+'</div></div><div class="la"><button class="ab adl" onclick="delBlog('+p.id+')">🗑</button></div></div>';}).join('');}
+function rBlogCode(){var el=document.getElementById('bCode');if(!blogs.length){el.innerHTML='<button class="cbt" onclick="cpC(String.fromCharCode(39)+String.fromCharCode(98)+String.fromCharCode(67)+String.fromCharCode(111)+String.fromCharCode(100)+String.fromCharCode(101)+String.fromCharCode(39))">📋 কোড কপি করুন</button>// পোস্ট যোগ করুন...';return;}var code=blogs.map(function(p){var t=p.title.replace(/"/g,"'"),e=p.excerpt.replace(/"/g,"'"),a=p.author.replace(/"/g,"'");var imgVal=p.image?'"'+p.image+'"':'null';return '  {\n    id: '+p.id+',\n    title: "'+t+'",\n    excerpt: "'+e+'",\n    content: `'+p.content+'`,\n    category: "'+p.category+'",\n    categoryLabel: "'+p.categoryLabel+'",\n    date: "'+p.date+'",\n    author: "'+a+'",\n    image: '+imgVal+',\n    featured: '+p.featured+',\n  },';}).join('\n');el.innerHTML='<button class="cbt" onclick="cpC(String.fromCharCode(39)+String.fromCharCode(98)+String.fromCharCode(67)+String.fromCharCode(111)+String.fromCharCode(100)+String.fromCharCode(101)+String.fromCharCode(39))">📋 কোড কপি করুন</button>'+code;}
+function onDrag(e){e.preventDefault();document.getElementById('dz').classList.add('on');}
+function offDrag(e){document.getElementById('dz').classList.remove('on');}
+function onDrop(e){e.preventDefault();offDrag(e);procF(Array.from(e.dataTransfer.files).filter(function(f){return f.type.startsWith('image/');}));}
+function onSel(e){procF(Array.from(e.target.files));}
+function procF(files){files.forEach(function(f){if(f.size>5242880){toast(f.name+' ৫MB+ বড়!');return;}var r=new FileReader();r.onload=function(ev){imgs.push({name:f.name,src:ev.target.result});rPrev();};r.readAsDataURL(f);});}
+function rPrev(){document.getElementById('pGrid').innerHTML=imgs.map(function(img,i){return '<div class="pi"><img src="'+img.src+'"><button class="pr" onclick="rmI('+i+')">✕</button><div class="pc">'+img.name+'</div></div>';}).join('');}
+function rmI(i){imgs.splice(i,1);rPrev();}
+function addGal(){var cap=g('gCap').trim(),cat=g('gCat'),rec=g('gRec')==='true';if(!cap){toast('বিবরণ লিখুন!');return;}if(!imgs.length){toast('ছবি বেছে নিন!');return;}var added=imgs.length;imgs.forEach(function(img,i){gals.unshift({id:Date.now()+i,src:img.src,fileName:img.name,caption:imgs.length>1?cap+' ('+(i+1)+')':cap,category:cat,catLabel:GCAT[cat],recent:rec});});save();imgs=[];rPrev();clrGal();rGal();rGalCode();toast(added+' টি ছবি যোগ হয়েছে! 🎉');}
+function delGal(id){if(!confirm('মুছে ফেলবেন?'))return;gals=gals.filter(function(i){return i.id!==id;});save();rGal();rGalCode();toast('মুছে ফেলা হয়েছে।');}
+function clrGal(){document.getElementById('gCap').value='';document.getElementById('gI').value='';imgs=[];rPrev();}
+function rGal(){var el=document.getElementById('gList');document.getElementById('gCnt').textContent=gals.length+' টি';document.getElementById('gBadge').textContent=gals.length+' টি ছবি';if(!gals.length){el.innerHTML='<div class="em"><div class="ei">🖼️</div><p>কোনো ছবি নেই।</p></div>';return;}el.innerHTML=gals.map(function(img){return '<div class="li"><div class="lt">'+(img.src?'<img src="'+img.src+'">':'🖼️')+'</div><div class="lin"><div class="ln">'+img.caption+'</div><div class="lm"><span class="bd bb">'+img.catLabel+'</span>'+(img.recent?'<span class="bd bo">সাম্প্রতিক</span>':'')+'<span>📁 '+(img.fileName||'-')+'</span></div></div><div class="la"><button class="ab adl" onclick="delGal('+img.id+')">🗑</button></div></div>';}).join('');}
+function rGalCode(){var el=document.getElementById('gCode');if(!gals.length){el.innerHTML='<button class="cbt" onclick="cpC(String.fromCharCode(39)+String.fromCharCode(103)+String.fromCharCode(67)+String.fromCharCode(111)+String.fromCharCode(100)+String.fromCharCode(101)+String.fromCharCode(39))">📋 কোড কপি করুন</button>// ছবি যোগ করুন...';return;}var code=gals.map(function(img){var c=img.caption.replace(/"/g,"'");return '  { src: "logo_icon_src/gallery/'+img.fileName+'", caption: "'+c+'", category: "'+img.category+'", recent: '+img.recent+' },';}).join('\n');el.innerHTML='<button class="cbt" onclick="cpC(String.fromCharCode(39)+String.fromCharCode(103)+String.fromCharCode(67)+String.fromCharCode(111)+String.fromCharCode(100)+String.fromCharCode(101)+String.fromCharCode(39))">📋 কোড কপি করুন</button>'+code;}
+function cpC(id){var el=document.getElementById(id);var btn=el.querySelector('.cbt');var text=el.innerText.replace(btn.innerText,'').trim();navigator.clipboard.writeText(text).then(function(){var o=btn.textContent;btn.textContent='কপি হয়েছে!';setTimeout(function(){btn.textContent=o;},2000);toast('কোড কপি হয়েছে! blog.html-এ পেস্ট করুন।');});}
+rBlog();rBlogCode();rGal();rGalCode();
+</script></body></html>
